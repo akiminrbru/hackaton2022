@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from './Profile.module.css';
 import logo from './../../img/logo.svg';
 import logowhite from './../../img/logo2.svg';
-
+import profile_icon from './../../img/profile_icon.svg'
 const Profile = () =>
 {
     return(
@@ -23,6 +23,41 @@ const Profile = () =>
                     </div>
                 </div>
             </header>
+            <article>
+            <div className="profile_container">
+            <div className={styles.main__content}>
+                        <div className={styles.card__profile}>
+                            
+                            <div className={styles.wrapper}>
+                                <div className={styles.user}>
+                                <img className={styles.profile_img} src={profile_icon} alt="logo"></img>
+                                </div>
+                            </div>
+                            <div className={styles.profile_data}>
+                            <h2>
+                                Иван Иванов
+                            </h2>
+                            <p>Посещено мероприятий</p>
+                            <div className={styles.profile_rating}>
+                                <p className={styles.rating_p}>Репутация</p>
+                                <p className={styles.rating_p}>Отзывы о волонтере</p>
+                            </div>
+                            </div>
+                            <div className={styles.contacts}>
+                                <h3>Контактная информация</h3>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+            </article>
+            <footer className={styles.footer}>
+                <div className="container">
+                    <div className={styles.footer__logo}>
+                        <img src={logowhite} alt="logowhite"></img>
+                        <h2 className={styles.footer__h2}>Помогай</h2>
+                    </div>  
+                </div>
+            </footer>
         </div>
     );
 }

@@ -6,6 +6,20 @@
     width: 100%;
     top: 0;
 }
+.wrapper {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+.user {
+    width: 150px; 
+    height: 150px; 
+    border: 12px solid grey;
+    border-radius: 50%; 
+    position: static; 
+    overflow: hidden;
+    background-color: white;
+}        
 
 .header__content {
     display: flex;
@@ -30,7 +44,46 @@
 .logo__img {
     width: 41px;
 }
+.profile_img{
+    width: 125px; 
+    height: 125px;
+    left: 16%; 
+    top: 22%;
+}
+.profile_data{
+    width: 404px;
+    height: 44px;
+    background: #FFFFFF;
+    margin-top: 20px;
+    padding-left: 100px;
+    margin-bottom: 50px;
+  font-size: 18px;
+  text-align: center;
+}
+.profile_rating{
+    width: 404px;
+    height: 44px;
+    background: #FFFFFF;
+    margin-top: 100px;
 
+    margin-bottom: 50px;
+  font-size: 18px;
+  text-align: left;
+}
+.rating_p{
+    margin-bottom: 10px;
+    font-weight: bolder;
+}
+.contacts{
+    width: 404px;
+    height: 88px;
+    background: #FFFFFF;
+    margin-top: 50px;
+    padding-left: 50px;
+    margin-bottom: 25px;
+    display: flex;
+    bottom: 50px;
+}
 .nav {
     display: flex;
     align-items: center;
@@ -84,14 +137,22 @@
 }
 
 .main__content {
-    background-image: url("./../../img/fon.svg");
+    background: whitesmoke;
     background-repeat: no-repeat;
     padding-bottom: 260px;
 }
 
-.main__register {
+.card__profile {
     width: 500px;
-    margin: 76px auto 0;
+    height: 750px;
+    margin: 100px 50px 0;
+    border: 1px;
+    background : white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius : 5px;
+    overflow-x:hidden;
+    position: unset;
+padding-bottom:50px;
 }
 
 .main__h2 {
