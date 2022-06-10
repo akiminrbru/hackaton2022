@@ -8,6 +8,7 @@ import {
     Route,
 } from "react-router-dom";
 import Lending from './Components/Lending/Lending';
+import CreateEvent from './Components/CreateEvent/CreateEvent';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/login" element={<Login />}/>
                 <Route path="/register" element={<Register />}/>
                 <Route path="/profile" element={<Profile />}/>
+                <Route path="/createEvent" element={<CreateEvent />}/>
             </Routes>
         </div>
     );

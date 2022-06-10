@@ -1,32 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import styles from './Login.module.css';
+import styles from './CreateEvent.module.css';
 import logo from './../../img/logo.svg';
 import logowhite from './../../img/logo2.svg';
-import axios from "axios";
 
-const Login = () => {
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    function emailChange(event) {
-        setEmail(event.target.value);
-    }
-
-    function passwordChange(event) {
-        setPassword(event.target.value);
-    }
-
-    function authUser() {
-        const user = {
-            email,
-            password
-        }
-
-        axios.post("http://hack.mysecrets.site/api/auth/login", user).then(res => console.log(res));
-    }
-
+const CreateEvent = () => {
     return (
         <div>
             <header className={styles.header}>
@@ -38,10 +16,10 @@ const Login = () => {
                         </div>
                         <nav className={styles.nav}>
                             <div>
-                                <Link className={styles.nav__auth} to="/login">Вход</Link>
+                                <Link className={styles.nav__auth} to="/login">Вернуться в профиль</Link>
                             </div>
                             <div className={styles.nav__box}>
-                                <Link className={styles.nav__reg} to="/register">Регистрация</Link>
+                                <Link className={styles.nav__reg} to="/register">Выйти</Link>
                             </div>
                         </nav>
                     </div>
@@ -51,12 +29,16 @@ const Login = () => {
                 <div className="container">
                     <div className={styles.main__content}>
                         <div className={styles.main__register}>
-                            <h2 className={styles.main__h2}>Вход</h2>
+                            <h2 className={styles.main__h2}>Создание мероприятия</h2>
                             <div className={styles.main__vvod}>
-                                <input value={email} onChange={emailChange} type="email" placeholder="Email" className={styles.main__input}></input>
-                                <input value={password} onChange={passwordChange} type="password" placeholder="Пароль" className={styles.main__input}></input>
-                                <button onClick={authUser} className={styles.main__btn}>Войти</button>
-                                <p className={styles.main__p}>Нет аккаунта? <Link to="/register">Создайте.</Link></p>
+                                <input placeholder="Название мероприятия" className={styles.main__input}></input>
+                                <input placeholder="Описание" className={styles.main__input}></input>
+                                <input placeholder="Местоположение" className={styles.main__input}></input>
+                                <input placeholder="Время начала" className={styles.main__input}></input>
+                                <input placeholder="Способ участия" className={styles.main__input}></input>
+                                <input placeholder="Ваш email " className={styles.main__input}></input>
+                                <input type="email" placeholder="Картинка" className={styles.main__input}></input>
+                                <button className={styles.main__btn}>Создать</button>
                             </div>
                         </div>
                     </div>
@@ -74,4 +56,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default CreateEvent;

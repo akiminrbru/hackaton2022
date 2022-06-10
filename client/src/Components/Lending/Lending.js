@@ -4,7 +4,7 @@ import styles from './Lending.module.css';
 const Lending = () => {
     return (
         <div>
-            Лендинг
+            <input type="datetime-local"></input>
         </div>
     );
 }

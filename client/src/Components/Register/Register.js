@@ -1,10 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from './Register.module.css';
 import logo from './../../img/logo.svg';
 import logowhite from './../../img/logo2.svg';
+import axios from 'axios';
+
 
 const Register = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+
+    function emailChange(event) {
+        setEmail(event.target.value);
+    }
+
+    function passwordChange(event) {
+        setPassword(event.target.value);
+    }
+
+    function firstNameChange(event) {
+        setFirstName(event.target.value);
+    }
+
+    function lastNameChange(event) {
+        setLastName(event.target.value);
+    }
+
+    function createUser() {
+        const user = {
+            email,
+            lastName,
+            firstName,
+            password
+        }
+
+        axios.post("http://hack.mysecrets.site/api/auth/registration", user).then(res => console.log(res));
+    }
+
     return (
         <div>
             <header className={styles.header}>
@@ -31,12 +66,12 @@ const Register = () => {
                         <div className={styles.main__register}>
                             <h2 className={styles.main__h2}>Регистрация пользователя</h2>
                             <div className={styles.main__vvod}>
-                                <input placeholder="Email" className={styles.main__input}></input>
-                                <input type="password" placeholder="Пароль" className={styles.main__input}></input>
+                                <input value={email} onChange={emailChange} type="email" placeholder="Email" className={styles.main__input}></input>
+                                <input value={password} onChange={passwordChange} type="password" placeholder="Пароль" className={styles.main__input}></input>
                                 <input type="password" placeholder="Повторите пароль" className={styles.main__input}></input>
-                                <input placeholder="Имя" className={styles.main__input}></input>
-                                <input placeholder="Фамилия" className={styles.main__input}></input>
-                                <button className={styles.main__btn}>Зарегистрироваться</button>
+                                <input value={firstName} onChange={firstNameChange} placeholder="Имя" className={styles.main__input}></input>
+                                <input value={lastName} onChange={lastNameChange} placeholder="Фамилия" className={styles.main__input}></input>
+                                <button onClick={createUser} className={styles.main__btn}>Зарегистрироваться</button>
                                 <p className={styles.main__p}>Уже есть аккаунт? <Link to="/login">Войдите.</Link></p>
                             </div>
                         </div>
