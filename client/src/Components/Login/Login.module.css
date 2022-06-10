@@ -80,13 +80,13 @@
 
 .main {
     background-color: #F2F2F2;
-    margin-top: 190px;
+    padding-top: 190px;
 }
 
 .main__content {
     background-image: url("./../../img/fon.svg");
     background-repeat: no-repeat;
-    padding-bottom: 260px;
+    padding-bottom: 450px;
 }
 
 .main__register {
@@ -144,6 +144,7 @@
 
 .main__btn:hover {
     cursor: pointer;
+    background: #aab3e8;
 }
 
 .main__p {
@@ -162,7 +163,6 @@
 }
 
 .footer {
-    margin-top: 150px;
     height: 341px;
     background: rgba(61, 113, 153, 0.58);
 }

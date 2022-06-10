@@ -16,10 +16,10 @@ const Login = () => {
                         </div>
                         <nav className={styles.nav}>
                             <div>
-                                <a className={styles.nav__auth} href="#">Вход</a>
+                                <Link className={styles.nav__auth} to="/login">Вход</Link>
                             </div>
                             <div className={styles.nav__box}>
-                                <a className={styles.nav__reg} href="#">Регистрация</a>
+                                <Link className={styles.nav__reg} to="/register">Регистрация</Link>
                             </div>
                         </nav>
                     </div>
@@ -34,7 +34,7 @@ const Login = () => {
                                 <input placeholder="Email" className={styles.main__input}></input>
                                 <input placeholder="Пароль" className={styles.main__input}></input>
                                 <button className={styles.main__btn}>Войти</button>
-                                <p className={styles.main__p}>Нет аккаунта? <a href="#">Создайте.</a></p>
+                                <p className={styles.main__p}>Нет аккаунта? <Link to="/register">Создайте.</Link></p>
                             </div>
                         </div>
                     </div>

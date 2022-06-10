@@ -16,10 +16,10 @@ const Register = () => {
                         </div>
                         <nav className={styles.nav}>
                             <div>
-                                <a className={styles.nav__auth} href="#">Вход</a>
+                                <Link className={styles.nav__auth} to="/login">Вход</Link>
                             </div>
                             <div className={styles.nav__box}>
-                                <a className={styles.nav__reg} href="#">Регистрация</a>
+                                <Link className={styles.nav__reg} to="/register">Регистрация</Link>
                             </div>
                         </nav>
                     </div>
@@ -37,7 +37,7 @@ const Register = () => {
                                 <input placeholder="Имя" className={styles.main__input}></input>
                                 <input placeholder="Фамилия" className={styles.main__input}></input>
                                 <button className={styles.main__btn}>Зарегистрироваться</button>
-                                <p className={styles.main__p}>Уже есть аккаунт? <a href="#">Войдите.</a></p>
+                                <p className={styles.main__p}>Уже есть аккаунт? <Link to="/login">Войдите.</Link></p>
                             </div>
                         </div>
                     </div>
