@@ -32,8 +32,8 @@ const Register = () => {
                             <h2 className={styles.main__h2}>Регистрация пользователя</h2>
                             <div className={styles.main__vvod}>
                                 <input placeholder="Email" className={styles.main__input}></input>
-                                <input placeholder="Пароль" className={styles.main__input}></input>
-                                <input placeholder="Повторите пароль" className={styles.main__input}></input>
+                                <input type="password" placeholder="Пароль" className={styles.main__input}></input>
+                                <input type="password" placeholder="Повторите пароль" className={styles.main__input}></input>
                                 <input placeholder="Имя" className={styles.main__input}></input>
                                 <input placeholder="Фамилия" className={styles.main__input}></input>
                                 <button className={styles.main__btn}>Зарегистрироваться</button>
