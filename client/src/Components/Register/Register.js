@@ -50,10 +50,12 @@ const Register = () => {
             <header className={styles.header}>
                 <div className="container">
                     <div className={styles.header__content}>
-                        <div className={styles.logo}>
-                            <img className={styles.logo__img} src={logo} alt="logo"></img>
-                            <h1 className={styles.logo__h1}>Помогай</h1>
-                        </div>
+                        <Link className={styles.header__link} to="/"> 
+                            <div className={styles.logo}>
+                                <img className={styles.logo__img} src={logo} alt="logo"></img>
+                                <h1 className={styles.logo__h1}>Помогай</h1>
+                            </div>
+                        </Link>
                         <nav className={styles.nav}>
                             <div>
                                 <Link className={styles.nav__auth} to="/login">Вход</Link>

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from './Login.module.css';
 import logo from './../../img/logo.svg';
 import logowhite from './../../img/logo2.svg';
@@ -7,6 +7,7 @@ import axios from "axios";
 import {Context} from './../../context';
 
 const Login = () => {
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -31,6 +32,7 @@ const Login = () => {
             console.log(res.data);
             localStorage.setItem("token", res.data.token);
             setLoginStatus(true);
+            navigate('/profile');
         }).catch(function (error) {
             console.log(error);
         });
@@ -39,16 +41,17 @@ const Login = () => {
         setPassword("");
     }
 
-
     return (
         <div>
             <header className={styles.header}>
                 <div className="container">
                     <div className={styles.header__content}>
-                        <div className={styles.logo}>
-                            <img className={styles.logo__img} src={logo} alt="logo"></img>
-                            <h1 className={styles.logo__h1}>Помогай</h1>
-                        </div>
+                        <Link to="/" className={styles.header__link}>
+                            <div className={styles.logo}>
+                                <img className={styles.logo__img} src={logo} alt="logo"></img>
+                                <h1 className={styles.logo__h1}>Помогай</h1>
+                            </div>
+                        </Link>
                         <nav className={styles.nav}>
                             <div>
                                 <Link className={styles.nav__auth} to="/login">Вход</Link>
@@ -60,18 +63,6 @@ const Login = () => {
                     </div>
                 </div>
             </header>
-            {loginStatus ? 
-            <div>
-                <h1>Профиль</h1>
-                <h1>Профиль</h1>
-                <h1>Профиль</h1>
-                <h1>Профиль</h1>
-                <h1>Профиль</h1>
-                <h1>Профиль</h1>
-                <h1>Профиль</h1>
-                <h1>Профиль</h1>
-            </div> 
-            : 
             <article className={styles.main}>
                 <div className="container">
                     <div className={styles.main__content}>
@@ -87,7 +78,6 @@ const Login = () => {
                     </div>
                 </div>
             </article>
-            }
             <footer className={styles.footer}>
                 <div className="container">
                     <div className={styles.footer__logo}>

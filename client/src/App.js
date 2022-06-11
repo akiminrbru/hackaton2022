@@ -10,7 +10,6 @@ import {
 } from "react-router-dom";
 import Lending from './Components/Lending/Lending';
 import CreateEvent from './Components/CreateEvent/CreateEvent';
-import ProfileMain from './Components/ProfileMain/ProfileMain';
 import News from './Components/News/News';
 import {Context} from './context';
 import axios from 'axios';
@@ -30,10 +29,13 @@ function App() {
     useEffect(() => {
         axios.get("http://hack.mysecrets.site/api/user/check", {
             headers: {
-                "Authorization": localStorage.getItem("token"),
-                "Access-Control-Allow-Origin": "http://hack.mysecrets.site/api/user/check"
+                "Authorization": "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json;charset=utf-8",
             }
-        }).then(res => console.log(res))
+        }).then(res => {
+            setLoginStatus(true);
+            console.log(res)
+        })
     }, [loginStatus]);
 
     return (
@@ -43,7 +45,7 @@ function App() {
                     <Route path="/" element={<News/>}/>
                     <Route path="/login" element={<Login />}/>
                     <Route path="/register" element={<Register />}/>
-                    <Route path="/profile" element={<ProfileMain />}/>
+                    <Route path="/profile" element={<Profile />}/>
                     <Route path="/createEvent" element={<CreateEvent />}/>
                 </Routes>
             </div>

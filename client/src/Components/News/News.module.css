@@ -14,10 +14,6 @@
     padding-top: 24px;
 }
 
-.header__link {
-    text-decoration: none;
-}
-
 .logo {
     display: flex;
 }
@@ -50,26 +46,17 @@
     text-decoration: none;
 }
 
-.nav__auth:hover {
-    cursor: pointer;
-    color: #d2d2d2;
-}
-
-.nav__disauth {
+.nav__profile {
     font-weight: 700;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 18px;
+    line-height: 21px;
     letter-spacing: 0.03em;
-    color: #000000;
-    width: 129px;
-    height: 26px;
-
-    background: #FFFFFF;
-    border: 1px solid #333333;
-    border-radius: 15px;
+    color: #000000; 
+    margin-right: 47px;
+    text-decoration: none;
 }
 
-.nav__disauth:hover {
+.nav__auth:hover {
     cursor: pointer;
     color: #d2d2d2;
 }
@@ -100,6 +87,7 @@
     cursor: pointer;
     color: #d2d2d2;
 }
+
 
 .footer {
     height: 341px;
