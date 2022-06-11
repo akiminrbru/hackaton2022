@@ -3,9 +3,19 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    transition: all 0.4s;
+}
+
+body {
+    background-color: #F2F2F2;
 }
 
 .container {
-    width: 1280px;
+    max-width: 1280px;
     margin: 0 auto;
+}
+
+.content {
+    margin: 0 auto;
+    width: 80%;
 }

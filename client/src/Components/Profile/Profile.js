@@ -1,11 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from './Profile.module.css';
 import logo from './../../img/logo.svg';
 import logowhite from './../../img/logo2.svg';
-import profile_icon from './../../img/profile_icon.svg'
-const Profile = () =>
-{
+import profile_icon from './../../img/profile_icon.svg';
+
+
+const Profile = () => {
+    const navigate = useNavigate();
+    function disAuth() {
+        localStorage.removeItem("token");
+        navigate('/');
+    }
+
     return(
         <div>
             <header className={styles.header}>
@@ -17,7 +24,7 @@ const Profile = () =>
                         </div>
                         <nav className={styles.nav}>
                             <div>
-                                <a className={styles.nav__disauth} href="#">Покинуть аккаунт</a>
+                                <button onClick={disAuth} className={styles.nav__disauth}>Покинуть аккаунт</button>
                             </div>
                         </nav>
                     </div>
@@ -61,4 +68,5 @@ const Profile = () =>
         </div>
     );
 }
+
 export default Profile;

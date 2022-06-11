@@ -38,6 +38,11 @@ const Register = () => {
         }
 
         axios.post("http://hack.mysecrets.site/api/auth/registration", user).then(res => console.log(res));
+
+        setEmail("");
+        setPassword("");
+        setFirstName("");
+        setLastName("");
     }
 
     return (

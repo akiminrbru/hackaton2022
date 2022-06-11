@@ -1,0 +1,24 @@
+.News{
+    h1{
+        font-weight: 800;
+        font-size: 36px;
+        line-height: 42px;
+        letter-spacing: 0.03em;
+        color: #333333;
+        text-align: center;
+    }
+    .items{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+@media (max-width:650px) {
+    .News{
+        h1{
+            font-size: 24px;
+            letter-spacing: 0;
+            line-height: 24px;
+        }
+    }
+}

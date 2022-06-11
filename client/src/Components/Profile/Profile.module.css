@@ -97,6 +97,8 @@
     color: #000000; 
     margin-right: 47px;
     text-decoration: none;
+    border: 0;
+    background-color: #fff;
 }
 
 .nav__disauth:hover {

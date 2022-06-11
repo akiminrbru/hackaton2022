@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from './Login.module.css';
 import logo from './../../img/logo.svg';
 import logowhite from './../../img/logo2.svg';
 import axios from "axios";
+import {Context} from './../../context';
 
 const Login = () => {
 
@@ -18,14 +19,26 @@ const Login = () => {
         setPassword(event.target.value);
     }
 
+    const {loginStatus, setLoginStatus} = useContext(Context);
+
     function authUser() {
         const user = {
             email,
             password
         }
 
-        axios.post("http://hack.mysecrets.site/api/auth/login", user).then(res => console.log(res));
+        axios.post("http://hack.mysecrets.site/api/auth/login", user).then(res => {
+            console.log(res.data);
+            localStorage.setItem("token", res.data.token);
+            setLoginStatus(true);
+        }).catch(function (error) {
+            console.log(error);
+        });
+
+        setEmail("");
+        setPassword("");
     }
+
 
     return (
         <div>
@@ -47,6 +60,18 @@ const Login = () => {
                     </div>
                 </div>
             </header>
+            {loginStatus ? 
+            <div>
+                <h1>Профиль</h1>
+                <h1>Профиль</h1>
+                <h1>Профиль</h1>
+                <h1>Профиль</h1>
+                <h1>Профиль</h1>
+                <h1>Профиль</h1>
+                <h1>Профиль</h1>
+                <h1>Профиль</h1>
+            </div> 
+            : 
             <article className={styles.main}>
                 <div className="container">
                     <div className={styles.main__content}>
@@ -62,6 +87,7 @@ const Login = () => {
                     </div>
                 </div>
             </article>
+            }
             <footer className={styles.footer}>
                 <div className="container">
                     <div className={styles.footer__logo}>
