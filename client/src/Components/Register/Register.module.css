@@ -91,6 +91,10 @@
     background-image: url("./../../img/fon.svg");
     background-repeat: no-repeat;
     padding-bottom: 250px;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%; 
 }
 
 .main__register {
@@ -105,6 +109,13 @@
     line-height: 42px;
     letter-spacing: 0.03em;
     color: #333333;
+}
+
+@media (max-width: 576px) {
+    .main__h2 {
+        font-size: 32px;
+        letter-spacing: 0;
+    }
 }
 
 .main__vvod {

@@ -12,6 +12,10 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 24px;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%; 
 }
 
 .header__link {
@@ -57,16 +61,18 @@
 
 .nav__disauth {
     font-weight: 700;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 18px;
+    line-height: 21px;
     letter-spacing: 0.03em;
     color: #000000;
     width: 129px;
     height: 26px;
-
-    background: #FFFFFF;
-    border: 1px solid #333333;
+    border: 2px solid #333333;
     border-radius: 15px;
+    width: 154px;
+    height: 43px;
+    text-align: center;
+    background-color: #fff;
 }
 
 .nav__disauth:hover {

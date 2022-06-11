@@ -9,7 +9,7 @@ import {
     useNavigate,
 } from "react-router-dom";
 import Lending from './Components/Lending/Lending';
-import CreateEvent from './Components/CreateEvent/CreateEvent';
+import CreateEvent from './Components/CreateEvent/CreateEvent'; 
 import News from './Components/News/News';
 import {Context} from './context';
 import axios from 'axios';
@@ -34,9 +34,10 @@ function App() {
             }
         }).then(res => {
             setLoginStatus(true);
+            console.log(loginStatus)
             console.log(res)
         })
-    }, [loginStatus]);
+    });
 
     return (
         <Context.Provider value={{loginStatus, setLoginStatus}}>

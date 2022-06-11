@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from './Profile.module.css';
 import logo from './../../img/logo.svg';
@@ -8,6 +8,7 @@ import avatar_profile from "../../img/avatar_profile.png"
 import classes from "./ProfileMain.module.scss"
 import ItemCard from "../News/ItemCard/itemCard";
 import {Context} from './../../context';
+import axios from "axios";
 
 const body = {
     name:"Иван",
@@ -76,7 +77,23 @@ const body = {
 }
 
 const ProfileCard = ({body})=>{
-    const {avatar,name,surname,visited_count,reputation,email,phone} = body
+    const {avatar,name,surname,visited_count,reputation,email,phone} = body;
+
+    const [information, setInformation] = useState({});
+
+    useEffect(()=> {
+        axios.get("http://hack.mysecrets.site/api/user", {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json;charset=utf-8",
+            }
+        }).then(res => {
+            setInformation(res.data);
+            console.log(information);
+        })
+    }, []);
+    
+
     return (
         <div className={classes.ProfileCard}>
             <div className={classes.userinfo}>
@@ -84,6 +101,9 @@ const ProfileCard = ({body})=>{
                 <h2>{name} {surname}</h2>
                 <p>Посещено мероприятий:</p>
                 <p data-visited> {visited_count||"0"}</p>
+            </div>
+            <div>
+                <Link className={classes.createEvent} to="/createEvent">Создать мероприятие</Link>
             </div>
             <div className={`${classes.userstats} ${classes.max_width}`}>
                 <h2>Репутация: {reputation||0}</h2>
@@ -132,9 +152,16 @@ const Profile = () => {
 
     function disAuth() {
         localStorage.removeItem("token");
-        navigate('/');
         setLoginStatus(false);
+        navigate('/');
     }
+
+    // useEffect(() => {
+    //     console.log(loginStatus)
+    //     if(loginStatus === false) {
+    //         navigate("/");
+    //     }
+    // }, []);
 
     return(
         <div>

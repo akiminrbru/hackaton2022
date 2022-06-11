@@ -1,12 +1,21 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from './Register.module.css';
 import logo from './../../img/logo.svg';
 import logowhite from './../../img/logo2.svg';
 import axios from 'axios';
+import {Context} from './../../context';
 
 
 const Register = () => {
+    const {loginStatus, setLoginStatus} = useContext(Context);
+    const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     if (loginStatus == true) {
+    //         navigate('/');
+    //     }
+    // }, []);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
