@@ -36,7 +36,7 @@ function App() {
             setLoginStatus(true);
             console.log(loginStatus)
             console.log(res)
-        })
+        }).catch(res => console.log(res));
     });
 
     return (

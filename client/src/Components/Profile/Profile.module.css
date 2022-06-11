@@ -107,6 +107,11 @@
     color: #d2d2d2;
 }
 
+.loader {
+    display: flex;
+    justify-content: center;
+}
+
 .footer {
     height: 341px;
     background: rgba(61, 113, 153, 0.58);
