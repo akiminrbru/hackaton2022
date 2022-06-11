@@ -1,5 +1,5 @@
 .header {
-    height: 90px;
+    height: 70px;
     background: #FFFFFF;
     box-shadow: 0px 4px 16px 6px rgba(173, 173, 173, 0.5);
     position: fixed;
@@ -11,7 +11,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 24px;
+    padding-top: 13.5px;
     -moz-background-size: 100%; /* Firefox 3.6+ */
     -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
     -o-background-size: 100%; /* Opera 9.6+ */

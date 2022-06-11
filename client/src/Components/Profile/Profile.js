@@ -9,6 +9,8 @@ import classes from "./ProfileMain.module.scss"
 import ItemCard from "../News/ItemCard/itemCard";
 import {Context} from './../../context';
 import axios from "axios";
+import loader from './Loader.module.scss';
+
 
 const body = {
     name:"Иван",
@@ -104,7 +106,7 @@ const ProfileCard = ({information})=>{
                         <path d="M11.5914 8.91686C11.4153 9.04279 11.2076 9.10568 11 9.10568C10.7923 9.10568 10.5847 9.04279 10.4086 8.91686L1.99999 2.90068L6.66665e-05 1.46979L0 15.2849C6.66665e-05 15.8237 0.447732 16.2605 0.999997 16.2605L21 16.2605C21.5523 16.2605 22 15.8236 22 15.2849V1.46973L19.9999 2.90068L11.5914 8.91686Z" fill="#909ADE"/>
                         <path d="M10.9988 6.92061L20.6712 6.50076e-05L1.32617 0L10.9988 6.92061Z" fill="#909ADE"/>
                     </svg>
-                    <a  href={`mailto:${email}`}>{email}</a>
+                    <a  href={`mailto:${information.email}`}>{information.email}</a>
                 </div>
                 <div>
                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -203,7 +205,19 @@ const Profile = () => {
                     </footer>
                 </div>
             :   
-            <div className={styles.loader}><h1>Загрузка...</h1></div>
+            <div className={loader.loader + ' ' + loader.loader1}>
+                <div>
+                    <div>
+                    <div>
+                        <div>
+                        <div>
+                            <div></div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
             }
         </div>
     );
