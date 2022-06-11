@@ -94,6 +94,9 @@ const ProfileCard = ({information})=>{
             <div>
                 <Link className={classes.createEvent} to="/createEvent">Создать мероприятие</Link>
             </div>
+            <div>
+                <Link className={classes.createEvent} to="/events">Список мероприятий</Link>
+            </div>
             <div className={`${classes.userstats} ${classes.max_width}`}>
                 <h2>Репутация: {reputation||0}</h2>
                 <h2>Отзывы: </h2>
@@ -145,12 +148,12 @@ const Profile = () => {
         navigate('/');
     }
 
-    // useEffect(() => {
-    //     console.log(loginStatus)
-    //     if(loginStatus === false) {
-    //         navigate("/");
-    //     }
-    // }, []);
+    useEffect(() => {
+        console.log(loginStatus)
+        if(loginStatus === false) {
+            navigate("/");
+        }
+    }, []);
 
     const [information, setInformation] = useState();
 

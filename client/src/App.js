@@ -43,7 +43,8 @@ function App() {
         <Context.Provider value={{loginStatus, setLoginStatus}}>
             <div className="App">
                 <Routes>
-                    <Route path="/" element={<News/>}/>
+                    <Route path="/" element={<Lending/>}/>
+                    <Route path="/events" element={<News/>}/>
                     <Route path="/login" element={<Login />}/>
                     <Route path="/register" element={<Register />}/>
                     <Route path="/profile" element={<Profile />}/>

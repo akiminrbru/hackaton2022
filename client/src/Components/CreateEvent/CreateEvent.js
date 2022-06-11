@@ -97,6 +97,7 @@ const CreateEvent = () => {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             }
         }).then(res => console.log(res))
+        navigate('/events')
     }
 
     return (

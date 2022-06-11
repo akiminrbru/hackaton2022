@@ -4,6 +4,7 @@ import classes from "./News.module.scss"
 import styles from "./News.module.css"
 import { Link } from "react-router-dom";
 import logo from './../../img/logo.svg';
+import lupa from './../../img/lupa.svg';
 import logowhite from './../../img/logo2.svg';
 import { useContext, useEffect, useState } from "react"
 import axios from "axios";
@@ -29,9 +30,15 @@ const News = () => {
             <header className={styles.header}>
                 <div className="container">
                     <div className={styles.header__content}>
-                        <div className={styles.logo}>
-                            <img className={styles.logo__img} src={logo} alt="logo"></img>
-                            <h1 className={styles.logo__h1}>Помогай</h1>
+                        <Link className={styles.header__link} to="/"> 
+                            <div className={styles.logo}>
+                                <img className={styles.logo__img} src={logo} alt="logo"></img>
+                                <h1 className={styles.logo__h1}>Помогай</h1>
+                            </div>
+                        </Link>
+                        <div className={styles.search}>
+                            <div><img src={lupa} alt="lupa"></img></div>
+                            <div><input placeholder="Поиск"></input></div>
                         </div>
                         {loginStatus ?
                         <nav className={styles.nav}>

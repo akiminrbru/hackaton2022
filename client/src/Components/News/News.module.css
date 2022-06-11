@@ -14,6 +14,36 @@
     padding-top: 13.5px;
 }
 
+.header__link {
+    text-decoration: none;
+}
+
+.search {
+    width: 315px;
+    height: 27px;
+    background: #FFFFFF;
+    border: 2px solid #DDE2E6;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.search img {
+    padding-left: 10px;
+    padding-top: 4px;
+}
+
+.search input {
+    border: 0;
+    outline:none;
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.search input:active {
+    border: 0;
+}
+
 .logo {
     display: flex;
 }
@@ -54,6 +84,11 @@
     color: #000000; 
     margin-right: 47px;
     text-decoration: none;  
+}
+
+.nav__profile:hover {
+    cursor: pointer;
+    color: #d2d2d2;
 }
 
 .nav__auth:hover {
