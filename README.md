@@ -1,6 +1,6 @@
 # hackaton2022
 Добро пожаловать в наш уютный репозиторий!
-В папка client расположена клиентская часть написанная на ReactJS
+В папке client расположена клиентская часть написанная на ReactJS
 ![image](https://user-images.githubusercontent.com/63392847/173253431-61dbce1d-121a-4150-8283-d2010fab79a3.png)
 
 В папке server расположена серверная часть на ExpressJS
