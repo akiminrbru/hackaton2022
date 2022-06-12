@@ -1,11 +1,17 @@
-
 import classes from "./manpan.module.scss"
 import React, {useContext, useState, useEffect, Fragment} from "react";
 import axios from "axios";
+<<<<<<< HEAD
 import {Link, useParams} from "react-router-dom";
 import styles from "../View/View.module.css";
 import logo from "../../img/logo.svg";
 import {Context} from "../../context";
+=======
+import { Link,useParams} from "react-router-dom";
+import styles from './ManPan.module.css';
+import logo from './../../img/logo.svg';
+
+>>>>>>> b2750a081e894b6d315f5212b9115e267aa31e46
 
 const ManPan =()=>{
     const lvl =0
@@ -47,6 +53,7 @@ const ManPan =()=>{
     }
 
     return(
+<<<<<<< HEAD
         <Fragment>
             <header className={styles.header}>
                 <div className="container">
@@ -74,6 +81,48 @@ const ManPan =()=>{
                                     </div>
                                 </nav>
                             }
+=======
+        <div>
+            <div>
+            <header className={styles.header}>
+                        <div className="container">
+                            <div className={styles.header__content}>
+                                <Link className={styles.header__link} to="/"> 
+                                    <div className={styles.logo}>
+                                        <img className={styles.logo__img} src={logo} alt="logo"></img>
+                                        <h1 className={styles.logo__h1}>Помогай</h1>
+                                    </div>
+                                </Link>
+                                <nav className={styles.nav}>
+                                    <div>
+                                        <Link className={styles.nav__auth} to="/profile">Профиль</Link>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </header>
+            </div>
+            <div className={"content"}>
+            {isLoaded ?
+                <div className={classes.ManPan}>
+                    <h1>Панель управления мероприятием</h1>
+                    <div className={classes.search}> Поиск
+                        <div className={classes.poisck}>
+                            <input type="search" placeholder="Найти" /></div>
+                    </div>
+                    <div className={classes.flex}>
+                        <div className={classes.row_man}>
+                            <table>
+                                <tbody>
+                                {
+                                    information.subscribers.map(sub => (
+                                        <LineCard sub={sub} id={id}/>
+                                    ))
+                                }
+                                </tbody>
+                            </table>
+
+>>>>>>> b2750a081e894b6d315f5212b9115e267aa31e46
                         </div>
                     </div>
                 </div>
@@ -188,6 +237,11 @@ const ManPan =()=>{
             </div>
         </Fragment>
 
+<<<<<<< HEAD
+=======
+        </div>
+        </div>
+>>>>>>> b2750a081e894b6d315f5212b9115e267aa31e46
     )
 }
 
