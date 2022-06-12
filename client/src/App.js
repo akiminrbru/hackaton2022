@@ -19,7 +19,7 @@ import View from './Components/View/View';
 function App() {
     const [loginStatus, setLoginStatus] = useState(false);
 
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     // useEffect(() => {
     //     if (localStorage.getItem("token")){
@@ -47,10 +47,10 @@ function App() {
                     <Route path="/" element={<Lending/>}/>
                     <Route path="/events" element={<News/>}/>
                     <Route path="/login" element={<Login />}/>
-                    <Route path="/view" element={<View />}/>
                     <Route path="/register" element={<Register />}/>
                     <Route path="/profile" element={<Profile />}/>
                     <Route path="/createEvent" element={<CreateEvent />}/>
+                    <Route path="/event/:id" element={<View />}/>
                 </Routes>
             </div>
         </Context.Provider>

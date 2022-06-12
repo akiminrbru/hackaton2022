@@ -84,7 +84,7 @@
 
 .main {
     background-color: #F2F2F2;
-    padding-top: 190px;
+    padding-top: 100px;
 }
 
 .main__content {
@@ -195,4 +195,13 @@
     letter-spacing: 0.095em;
     color: #FFFFFF;
     margin-left: 7px;
+}
+
+.checkPassword {
+    color: red;
+    display: none;
+}
+
+.visible {
+    display: block;
 }

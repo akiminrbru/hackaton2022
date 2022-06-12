@@ -125,13 +125,13 @@ const ProfileCard = ({information})=>{
 const Dashboard = ({events})=>{
     return (
         <div className={classes.Dashboard}>
-            <h2>Посещенные мероприятия</h2>
+            <h2>Созданные мероприятия</h2>
             <div className={classes.DashboardItems}>
                 {events.map((e,i)=>(
                     <ItemCard key={i} item={e}/>
                 ))}
             </div>
-            <h2>Созданные мероприятия</h2>
+            <h2>Посещенные мероприятия</h2>
         </div>
     )
 }
@@ -149,13 +149,15 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        console.log(loginStatus)
+        //console.log(loginStatus)
         if(loginStatus === false) {
             navigate("/");
         }
     }, []);
 
     const [information, setInformation] = useState();
+    const [isLoaded, setSsLoaded] = useState(false);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
         axios.get("http://hack.mysecrets.site/api/user", {
@@ -164,8 +166,20 @@ const Profile = () => {
                 "Content-Type": "application/json;charset=utf-8",
                 }
         }).then(res => {
-            console.log(res.data);
+            //console.log(res.data);
             setInformation(res.data);
+
+            axios.get("http://hack.mysecrets.site/api/user/events/"+res.data.id, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json;charset=utf-8",
+            }
+            }).then(res => {
+                //console.log(res.data.createdEvents);
+                setEvents(res.data.createdEvents);
+                setSsLoaded(true)
+            })
+
         })
     }, []);
 
@@ -194,7 +208,7 @@ const Profile = () => {
                         <div className="container">
                             <div className={classes.Profile}>
                                 <ProfileCard information={information}/>
-                                <Dashboard events={body.events}/>
+                                {isLoaded ? <Dashboard events={events}/> : <div>Загрузка....</div>}
                             </div>
                         </div>
                     </article>

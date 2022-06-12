@@ -12,34 +12,118 @@ const Register = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(loginStatus)
+        //console.log(loginStatus)
         if (loginStatus === true) {
             navigate('/');
         }
     }, []);
 
     const [email, setEmail] = useState('');
+    const [emailDirty, setEmailDirty] = useState('');
+    const [emailErorr, setEmailError] = useState("Email не может быть пустым");
+
     const [password, setPassword] = useState('');
+    const [passwordDirty, setPasswordDirty] = useState('');
+    const [passwordErorr, setPasswordError] = useState("Пароль не может быть пустым");
+
+    const [repeatPassword, setRepeatPassword] = useState('');
+    const [repeatPasswordDirty, setRepeatPasswordDirty] = useState('');
+    const [repeatPasswordErorr, setRepeatPasswordError] = useState("Пароли должны совпадать");
+
+
     const [firstName, setFirstName] = useState('');
+    const [firstNameDirty, setFirstNameDirty] = useState('');
+    const [firstNameErorr, setFirstNameError] = useState("Имя не должно быть пустым");
+
+
     const [lastName, setLastName] = useState('');
+    const [lastNameDirty, setLastNameDirty] = useState('');
+    const [lastNameErorr, setLastNameError] = useState("Фамилия не должна быть пустым");
+
+    const [formValid, setFormValid] = useState(false);
+
+    const blurHandler = (e) => {
+        switch (e.target.name) {
+            case 'email':
+                setEmailDirty(true);
+                break;
+            case 'password':
+                setPasswordDirty(true);
+                break;
+            case 'firstName':
+                setFirstNameDirty(true);
+                break;
+            case 'lastName':
+                setLastNameDirty(true);
+                break;
+            case 'repeatPassword':
+                setRepeatPasswordDirty(true);
+        }
+    }
 
     function emailChange(event) {
         setEmail(event.target.value);
+
+        const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if (!re.test(String(event.target.value).toLowerCase())) {
+            setEmailError("Неккоректный email")
+        } else {
+            setEmailError("");
+        }
     }
 
     function passwordChange(event) {
         setPassword(event.target.value);
+        if (event.target.value.length < 3 || event.target.value.length > 12) {
+            setPasswordError("Пароль должен быть длинее 3 и меншье 12");
+            if(!event.target.value) {
+                setPasswordError("Пароль не может быть пустым");
+            }
+        } else {
+            setPasswordError("");
+        }
+    }
+    
+    function repeatPasswordChange(event) {
+        setRepeatPassword(event.target.value);
+
+        if (event.target.value !== password) {
+            setRepeatPasswordError("Пароли должны совпадать");
+        } else {
+            setRepeatPasswordError("");
+        }
     }
 
     function firstNameChange(event) {
         setFirstName(event.target.value);
+        if(!event.target.value) {
+            setFirstNameError("Имя не может быть пустым");
+        } else {
+            setFirstNameError("");
+        }
     }
 
     function lastNameChange(event) {
         setLastName(event.target.value);
+        if(!event.target.value) {
+            setLastNameError("Фамилия не может быть пустой");
+        } else {
+            setLastNameError("");
+        }
     }
 
-    function createUser() {
+    useEffect(() => {
+        if (emailErorr || passwordErorr || firstNameErorr || lastNameErorr || repeatPasswordErorr) {
+            setFormValid(false);
+        } else {
+            setFormValid(true);
+        }
+    }, [emailErorr, passwordErorr, firstNameErorr, lastNameErorr, repeatPasswordErorr])
+    
+
+    const [response, setResponse] = useState();
+
+    async function createUser() {
         const user = {
             email,
             lastName,
@@ -47,13 +131,28 @@ const Register = () => {
             password
         }
 
-        axios.post("http://hack.mysecrets.site/api/auth/registration", user).then(res => console.log(res));
+        await axios.post("http://hack.mysecrets.site/api/auth/registration", user)
+        .then(res => {
+            //console.log(res);
+            setResponse(res.data.message);
+        })
+        .catch(res => {
+            //console.log(res);
+            setResponse(res.response.data.message);
+        });
+
+        //await console.log(response);
 
         setEmail("");
         setPassword("");
+        setRepeatPassword("");
         setFirstName("");
         setLastName("");
     }
+
+    // useEffect(() => {
+    //     console.log(response);
+    // }, [response])
 
     return (
         <div>
@@ -89,12 +188,27 @@ const Register = () => {
                                 <div className={styles.main__register}>
                                     <h2 className={styles.main__h2}>Регистрация пользователя</h2>
                                     <div className={styles.main__vvod}>
-                                        <input value={email} onChange={emailChange} type="email" placeholder="Email" className={styles.main__input}></input>
-                                        <input value={password} onChange={passwordChange} type="password" placeholder="Пароль" className={styles.main__input}></input>
-                                        <input type="password" placeholder="Повторите пароль" className={styles.main__input}></input>
-                                        <input value={firstName} onChange={firstNameChange} placeholder="Имя" className={styles.main__input}></input>
-                                        <input value={lastName} onChange={lastNameChange} placeholder="Фамилия" className={styles.main__input}></input>
-                                        <button onClick={createUser} className={styles.main__btn}>Зарегистрироваться</button>
+                                        {(emailDirty && emailErorr) && <div style={{color:"red"}}>{emailErorr}</div>}
+                                        <input onBlur={blurHandler} value={email} onChange={emailChange} name="email" type="email" placeholder="Email" className={styles.main__input}></input>
+                                        {(passwordDirty && passwordErorr) && <div style={{color:"red"}}>{passwordErorr}</div>}
+                                        <input onBlur={blurHandler} value={password} name="password" onChange={passwordChange} type="password" placeholder="Пароль" className={styles.main__input}></input>
+                                        {(repeatPasswordDirty && repeatPasswordErorr) && <div style={{color:"red"}}>{repeatPasswordErorr}</div>}
+                                        <input onBlur={blurHandler} value={repeatPassword} name="repeatPassword" onChange={repeatPasswordChange} type="password" placeholder="Повторите пароль" className={styles.main__input}></input>
+                                        {(firstNameDirty && firstNameErorr) && <div style={{color:"red"}}>{firstNameErorr}</div>}
+                                        <input onBlur={blurHandler} value={firstName} onChange={firstNameChange} name="firstName" placeholder="Имя" className={styles.main__input}></input>
+                                        {(lastNameDirty && lastNameErorr) && <div style={{color:"red"}}>{lastNameErorr}</div>}
+                                        <input onBlur={blurHandler} value={lastName} onChange={lastNameChange} name="lastName" placeholder="Фамилия" className={styles.main__input}></input>
+                                        <button disabled={!formValid} onClick={createUser} className={styles.main__btn}>Зарегистрироваться</button>
+                                        {response == "User was created"  ? 
+                                        <div style={{color:"blue", textAlign: 'center', marginTop: "10px"}}>Вы успешно зарегистрировались!</div> 
+                                        : 
+                                        <div></div> 
+                                        }   
+                                        {response == "User with this email already exist"  ? 
+                                        <div style={{color:"blue", textAlign: 'center', marginTop: "10px"}}>Пользователь с такой почтой уже существует!</div> 
+                                        : 
+                                        <div></div> 
+                                        }     
                                         <p className={styles.main__p}>Уже есть аккаунт? <Link to="/login">Войдите.</Link></p>
                                     </div>
                                 </div>
@@ -116,3 +230,18 @@ const Register = () => {
 }
 
 export default Register;
+
+
+// {switch (response) {
+//     case 'User was created':
+//         <div style={{color:"blue", textAlign: 'center', marginTop: "10px"}}>Вы успешно зарегистрировались!</div>
+//         break;
+//     case 'User with this email already exist':
+//         <div style={{color:"blue", textAlign: 'center', marginTop: "10px"}}>Вы успешно зарегистрировались!</div>
+//         break;
+//     case '':
+//         <div></div>
+//         break;
+// }}
+
+     

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import classes from "./View.module.scss";
 import img1 from "../../img/img1.png";
 import styles from './View.module.css';
@@ -6,6 +6,9 @@ import logo from './../../img/logo.svg';
 import { Link, useNavigate } from "react-router-dom";
 import logowhite from './../../img/logo2.svg';
 import {Context} from './../../context';
+import axios from "axios";
+import { useParams } from "react-router-dom"
+import kartinka from './../../img/defaultimage.jpg';
 
 const items = [
     {
@@ -47,6 +50,32 @@ const items = [
 ]
 
 const View = () => {
+    const [information, setInformation] = useState();
+    const [isLoaded, setIsLoaded] = useState(false);
+    const { id } = useParams();
+
+    useEffect(() => {
+
+        axios.get("http://hack.mysecrets.site/api/event/"+id, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json;charset=utf-8",
+                }
+        }).then(res => {
+            console.log(res.data);
+            setInformation(res.data);
+            setIsLoaded(true)
+
+        })
+
+        
+
+    }, []);
+
+
+    const formatDate = (date) => {
+        return date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()
+    }
 
     const {loginStatus, setLoginStatus} = useContext(Context);
 
@@ -82,15 +111,18 @@ const View = () => {
             </header>
             <article className={styles.main}>
                 <div className={"content"}>
+                {isLoaded ?
                     <div className={classes.View}>
-                        <h1>Благотворительная акция </h1>
+                        <div className={styles.backtoevent}>
+                            <Link className={styles.nav__backtoevent} to="/events">Вернуться к списку мероприятий</Link>
+                        </div>
+                        <h1>{information.title} </h1>
                         <div className={classes.banner}>
-                            <div><img src={img1}></img></div>
+                            <div><img className={classes.banner_img} src={information.img || kartinka}/></div>
                                 <div className={classes.col_item}>
                                     
                                     <h3>
-                                        Благотворительная акция 
-
+                                        {information.title}
                                     </h3>
                                     <hr/>
                                     <div className={classes.row_item}>
@@ -101,7 +133,7 @@ const View = () => {
                                             <path d="M7.49859 3.46777C5.45316 3.46777 3.78906 5.13187 3.78906 7.1773C3.78906 9.22272 5.45316 10.8868 7.49859 10.8868C9.54401 10.8868 11.2081 9.22272 11.2081 7.1773C11.2081 5.13187 9.54401 3.46777 7.49859 3.46777ZM7.49859 9.98206C5.95205 9.98206 4.69382 8.72384 4.69382 7.1773C4.69382 5.63076 5.95205 4.37254 7.49859 4.37254C9.04519 4.37254 10.3033 5.63076 10.3033 7.1773C10.3033 8.72384 9.04519 9.98206 7.49859 9.98206Z" fill="#3D7199"/>
                                         </svg>
                                         </div> 
-                                        г. Ростов-на-Дону, пл. Гагарина 1
+                                        {information.location}
                                     </div>
                                     <div className={classes.row_item}>
                                     <div className={classes.row_it}>
@@ -115,7 +147,7 @@ const View = () => {
                                             <path d="M20.0859 19.586H2.03908C1.32752 19.586 0.75 19.0084 0.75 18.2969V19.586C0.75 20.2975 1.32752 20.875 2.03908 20.875H20.0859C20.7975 20.875 21.375 20.2975 21.375 19.586V18.2969C21.3749 19.0084 20.7975 19.586 20.0859 19.586Z" fill="#C4C4C4"/>
                                             </svg>
                                         </div> 
-                                        27.05 - 29.05
+                                        {formatDate(new Date(information.startDate))} - {formatDate(new Date(information.endDate))}
                                         
                                     </div>
                                     <div className={classes.btn}>
@@ -127,20 +159,33 @@ const View = () => {
                         </div>
                         <div className={classes.contener}>
                             <div>
-                                <h3>Основная информация</h3>
-                                {items.map((e,i)=>(
-                                    <p key={i}>{e.t}: <span>{e.v}</span></p>
-                                ))}
+                                <h2>Основная информация</h2>
+
+                                <p>Название: <span>{information.title}</span></p>
+                                <p>Описание: <span>{information.description}</span></p>
+                                <p>Местоположение: <span>{information.location}</span></p>
+                                <p>Способ участия: <span>{information.participateWays}</span></p>
+                                <p>Название компании: <span>{information.fullInfo.company}</span></p>
+                                <p>Ограничения на возраст: <span>{information.fullInfo.age}</span></p>
+
                             </div>
                             <div>
-                                <h3>Дополнительная информация</h3>
-                                {items.map((e,i)=>(
-                                    <p key={i}>{e.t}: <span>{e.v}</span></p>
-                                ))}
+                                <h2>Дополнительная информация</h2>
+                                
+                                <p>Тип работы: <span>{information.fullInfo.workType}</span></p>
+                                <p>Требования к кандидатам: <span>{information.fullInfo.requirements}</span></p>
+                                <p>Задачи: <span>{information.fullInfo.tasks}</span></p>
+                                <p>Контактные данные: <span>{information.fullInfo.contactEmail}</span></p>
+
                             </div>
                         </div>
                     </div>
-            </div>
+                    :
+                    <div className={classes.View}>
+                        <h1>Загрузка... </h1>
+                    </div>
+                    }
+                </div>
             </article>
             <footer className={styles.footer}>
                 <div className="container">

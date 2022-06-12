@@ -8,6 +8,8 @@
     flex-direction: column;
     width: 300px;
     align-items: center;
+    transition: all 0.4s;
+
     .itemImg{
         background-position: center;
         width: 100%;
@@ -41,4 +43,11 @@
             margin: 0 5px;
         }
     }
+
+    
+}
+
+.ItemCard:hover{
+    cursor: pointer;
+    transform: scale(1.03);
 }

@@ -109,3 +109,22 @@
     color: #FFFFFF;
     margin-left: 7px;
 }
+
+.backtoevent {
+    display: flex;
+    justify-content: right;
+}
+
+.nav__backtoevent {
+    margin-bottom: 20px;
+    padding: 5px;
+    border: 2px solid #000;
+    text-decoration: none;
+    color: #333;
+    border-radius: 10px;
+}
+
+.nav__backtoevent:hover {
+    cursor: pointer;
+    color: #828282;
+}

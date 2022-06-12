@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from './CreateEvent.module.css';
 import logo from './../../img/logo.svg';
@@ -8,7 +8,7 @@ import axios from "axios";
 import { useRef } from "react";
 
 
-const CreateEvent = () => {
+const CreateEvent = ({email}) => {
 
     const {loginStatus, setLoginStatus} = useContext(Context);
 
@@ -24,23 +24,21 @@ const CreateEvent = () => {
     //     if (loginStatus == false) {
     //         navigate('/');
     //     }
-    // }, []);
-
+    // }, []);  
 
     const nextDay = new Date()
     nextDay.setDate(nextDay.getDate()+1)
     const imageRef = useRef();
 
-    const [eventData, setEventData] = useState(() => {
-        return {
+    const [eventData, setEventData] = useState({
             title:'', 
             description:'', 
             location:'', 
             startDate: new Date(), 
             endDate: nextDay, 
             tags: [], 
-            difficulty:'', 
-            participateWays:'',
+            difficulty:'easy', 
+            participateWays:'offline',
             company:'', 
             vacancySphere:'', 
             workType:'', 
@@ -49,25 +47,81 @@ const CreateEvent = () => {
             tasks:'', 
             deadlines:'', 
             age:'', 
-            contactEmail:'',
+            contactEmail: email ||'',
             conditions:'', 
             salary:'',
             awards:'', 
             coins:'', 
-            services:''
+            services:'',
+            audience:'',
+            typeOfEvent:'event'
+        });
+
+    const [eventDataDirty, setEventDataDirty] = useState({
+            title:'', 
+            description:'', 
+            location:'', 
+            startData: '',
+            company:'', 
+            age:'', 
+        });
+
+    const [eventDataErorr, setEventDataErorr] = useState({
+        title:'Поле не должно быть пустым.', 
+        description:'Поле не должно быть пустым.', 
+        location:'Поле не должно быть пустым.', 
+        startData: 'Поле не должно быть пустым.',
+        company: 'Поле не должно быть пустым.', 
+        age:'Поле не должно быть пустым.', 
+    });    
+
+    const [formValid, setFormValid] = useState(false);
+
+    const blurHandler = (e) => {
+        switch (e.target.name) {
+            case 'title':
+                setEventDataDirty({...eventDataDirty, title: true});
+                break;
+            case 'description':
+                setEventDataDirty({...eventDataDirty, description: true});
+                console.log(eventDataDirty)
+                break;
+            case 'location':
+                setEventDataDirty({...eventDataDirty, location: true});
+                break;    
+            case 'startDate':
+                setEventDataDirty({...eventDataDirty, startDate: true});
+                break;
+            case 'company':
+                setEventDataDirty({...eventDataDirty, company: true});
+                break;
+            case 'age':
+                setEventDataDirty({...eventDataDirty, age: true});
+                break;
+            
         }
-    });
+    }
+
+    useEffect(() => {
+        if (eventDataErorr.title || eventDataErorr.description || eventDataErorr.location || eventDataErorr.startDate || eventDataErorr.company || eventDataErorr.age) {
+            setFormValid(false);
+            console.log(eventDataErorr.title)
+        } else {
+            setFormValid(true);
+        }
+    }, [eventDataErorr.title, eventDataErorr.description, eventDataErorr.location, eventDataErorr.startDate, eventDataErorr.company, eventDataErorr.age])
 
     const [file, setFile] = useState();
 
-    const changeInputEvent = event => {
-        event.persist()
-        setEventData(prev => {
-            return {
-                ...prev,
-                [event.target.name]: event.target.value,
-            }
-        })
+    const changeInputEvent = (event) => {
+        setEventData({...eventData, [event.target.name]: event.target.value})
+
+        if(!event.target.value) {
+            setEventDataErorr({...eventDataErorr, [event.target.name]: "Поле не должно быть пустым."});
+        }
+        else {
+            setEventDataErorr({...eventDataErorr, [event.target.name]: ""});
+        }
     }
 
     const handleFileChange = (event) => {
@@ -129,31 +183,61 @@ const CreateEvent = () => {
                             <h2 className={styles.main__h2}>Создание мероприятия</h2>
                             <div className={styles.main__vvod}>
                                 <div className={styles.main__vvodleft}>
-                                    <input name="title"           onChange={changeInputEvent} value={eventData.title} type="text" placeholder="Название мероприятия *" className={styles.main__input}></input>
-                                    <input name="description"     onChange={changeInputEvent} value={eventData.description} type="text" placeholder="Описание *" className={styles.main__input}></input>
-                                    <input name="file"     onChange={handleFileChange} ref={imageRef} accept="image/*" type="file" placeholder="Описание *" className={styles.main__input + ' ' + styles.main__inputfile}></input>
-                                    <input name="location"        onChange={changeInputEvent} value={eventData.location} type="text" placeholder="Местоположение *" className={styles.main__input}></input>
-                                    <input name="startDate"       onChange={changeInputEvent} value={eventData.startDate.toLocaleDateString('en-CA')} type="date" className={styles.main__input + ' ' + styles.main__inputdate} />
-                                    <input name="endDate"         onChange={changeInputEvent} value={eventData.endDate.toLocaleDateString('en-CA')} type="date" className={styles.main__input + ' ' + styles.main__inputdate} />
-                                    <input name="difficulty"      onChange={changeInputEvent} value={eventData.difficulty} type="text" placeholder="Сложность *" className={styles.main__input}></input>
-                                    <input name="participateWays" onChange={changeInputEvent} value={eventData.participateWays} type="text" placeholder="Способ участия *" className={styles.main__input}></input>
-                                    <input name="company"         onChange={changeInputEvent} value={eventData.company} type="text" placeholder="Название компании *" className={styles.main__input}></input>
+                                    <select name="typeOfEvent"     onChange={changeInputEvent} value={eventData.typeOfEvent} placeholder="Тип мероприятия" className={styles.main__input}>
+                                        <option value="work">Работа</option>
+                                        <option value="event">Мероприятия</option>
+                                    </select>
+                                    {(eventDataDirty.title && eventDataErorr.title) && <div style={{color:"red"}}>{eventDataErorr.title}</div>}
+                                    <input onBlur={blurHandler} name="title"           onChange={changeInputEvent} value={eventData.title} type="text" placeholder={eventData.typeOfEvent==="work" ? "Наименование вакансии*":"Название мероприятия*"} className={styles.main__input}></input>
+                                    {(eventDataDirty.description && eventDataErorr.description) && <div style={{color:"red"}}>{eventDataErorr.description}</div>}
+                                    <textarea onBlur={blurHandler} name="description"  onChange={changeInputEvent} value={eventData.description}  placeholder={eventData.typeOfEvent==="work" ? "Описание вакансии*":"Описание мероприятия*"} className={styles.main__input + ' ' + styles.main__textarea}/>
+                                    <input name="file"            onChange={handleFileChange} ref={imageRef} accept="image/*" type="file" placeholder="Описание *" className={styles.main__input + ' ' + styles.main__inputfile}/>
+                                    {(eventDataDirty.location && eventDataErorr.location) && <div style={{color:"red"}}>{eventDataErorr.location}</div>}
+                                    <input onBlur={blurHandler} name="location"        onChange={changeInputEvent} value={eventData.location} type="text" placeholder="Местоположение *" className={styles.main__input}></input>
+                                    {(eventDataDirty.startDate && eventDataErorr.startDate) && <div style={{color:"red"}}>{eventDataErorr.startDate}</div>}
+                                    <input onBlur={blurHandler} name="startDate"       onChange={changeInputEvent} value={eventData.startDate} type="date" className={styles.main__input + ' ' + styles.main__inputdate} />
+                                    <input onBlur={blurHandler} name="endDate"         onChange={changeInputEvent} value={eventData.endDate} type="date" className={styles.main__input + ' ' + styles.main__inputdate} />
+                                    <select onBlur={blurHandler} name="difficulty"     onChange={changeInputEvent} value={eventData.difficulty} placeholder="Сложность *" className={styles.main__input}>
+                                        <option value="easy">Легкий</option>
+                                        <option value="medium">Средний</option>
+                                        <option value="hard">Сложный</option>
+                                        <option value="other">Особые навыки</option>
+                                    </select>
+                                    <select onBlur={blurHandler} name="participateWays"onChange={changeInputEvent} value={eventData.participateWays} placeholder="Способ участия *" className={styles.main__input}>
+                                        <option value="online">Онлайн</option>
+                                        <option value="offline">Оффлайн</option>
+                                        <option value="mixed">Смешанный</option>
+                                    </select>
+                                    {(eventDataDirty.company && eventDataErorr.company) && <div style={{color:"red"}}>{eventDataErorr.company}</div>}
+                                    <input onBlur={blurHandler} name="company"         onChange={changeInputEvent} value={eventData.company} type="text" placeholder="Название компании *" className={styles.main__input}></input>
+                                    {(eventDataDirty.age && eventDataErorr.age) && <div style={{color:"red"}}>{eventDataErorr.age}</div>}
+                                    <input onBlur={blurHandler} name="age"             onChange={changeInputEvent} value={eventData.age} type="number" placeholder="Ограничения на возраст *" className={styles.main__input}></input>
                                 </div>
                                 <div className={styles.main__vvodright}> 
                                     <input name="workType"        onChange={changeInputEvent} value={eventData.workType} type="text" placeholder="Тип работы" className={styles.main__input}></input>
-                                    <input name="requirements"    onChange={changeInputEvent} value={eventData.requirements} type="text" placeholder="Требования к кандидату" className={styles.main__input}></input>
-                                    <input name="tasks"           onChange={changeInputEvent} value={eventData.tasks} type="text" placeholder="Задачи" className={styles.main__input}></input>
+                                    <textarea name="requirements" onChange={changeInputEvent} value={eventData.requirements} placeholder="Требования к кандидату" className={styles.main__input + ' ' + styles.main__textarea}/>
+                                    <textarea name="tasks"        onChange={changeInputEvent} value={eventData.tasks} placeholder="Задачи" className={styles.main__input + ' ' + styles.main__textarea} />
                                     <input name="deadlines"       onChange={changeInputEvent} value={eventData.deadlines} type="text" placeholder="Сроки" className={styles.main__input}></input>
                                     <input name="contactEmail"    onChange={changeInputEvent} value={eventData.contactEmail} type="email"placeholder="Контактная почта" className={styles.main__input}></input>
-                                    <input name="salary"          onChange={changeInputEvent} value={eventData.salary} type="text" placeholder="Заработная плата" className={styles.main__input}></input>
-                                    <input name="awards"          onChange={changeInputEvent} value={eventData.awards} type="text" placeholder="Награды для волонтеров" className={styles.main__input}></input>
-                                    <input name="coins"           onChange={changeInputEvent} value={eventData.coins} type="text" placeholder="Количество монет" className={styles.main__input}></input>
-                                    <input name="services"        onChange={changeInputEvent} value={eventData.services} type="text" placeholder="Доступный сервис для волонтеров" className={styles.main__input}></input>
-                                    <input name="vacancySphere"   onChange={changeInputEvent} value={eventData.vacancyName} type="text" placeholder="Сфера вакансии" className={styles.main__input}></input>
+                                    {eventData.typeOfEvent==="work" &&
+                                        <Fragment>
+                                            <input name="salary"          onChange={changeInputEvent} value={eventData.salary} type="number" placeholder="Заработная плата" className={styles.main__input}></input>
+                                            <input name="audience"          onChange={changeInputEvent} value={eventData.audience} type="number" placeholder="Целевая аудитория" className={styles.main__input}></input>
+                                        </Fragment>
+                                    }
+
+                                    {eventData.typeOfEvent==="event" &&
+                                        <Fragment>
+                                            <input name="awards"          onChange={changeInputEvent} value={eventData.awards} type="text" placeholder="Награды для волонтеров" className={styles.main__input}></input>
+                                            <input name="services"        onChange={changeInputEvent} value={eventData.services} type="text" placeholder="Доступный сервис для волонтеров" className={styles.main__input}></input>
+                                        </Fragment>
+                                    }
+                                    
+                                    <input name="vacancySphere"   onChange={changeInputEvent} value={eventData.vacancySphere} type="text" placeholder="Сфера вакансии" className={styles.main__input}></input>
                                 </div>
                             </div>
                             <div className={styles.main__vvodbtn}>
-                                <button onClick={() => create()} className={styles.main__btn}>Создать</button>
+                                <button disabled={!formValid} onClick={() => create()}  className={styles.main__btn}>Создать</button>
                             </div>
                         </div>
                     </div>

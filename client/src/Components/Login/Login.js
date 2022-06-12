@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from './Login.module.css';
 import logo from './../../img/logo.svg';
@@ -10,17 +10,59 @@ const Login = () => {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
+    const [emailDirty, setEmailDirty] = useState('');
+    const [emailErorr, setEmailError] = useState("Email не может быть пустым");
+
     const [password, setPassword] = useState('');
+    const [passwordDirty, setPasswordDirty] = useState('');
+    const [passwordErorr, setPasswordError] = useState("Пароль не может быть пустым");
+
+    const [formValid, setFormValid] = useState(false);
+
+    const blurHandler = (e) => {
+        switch (e.target.name) {
+            case 'email':
+                setEmailDirty(true);
+                break;
+            case 'password':
+                setPasswordDirty(true);
+                break;
+        }
+    }
 
     function emailChange(event) {
         setEmail(event.target.value);
+
+        const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if (!re.test(String(event.target.value).toLowerCase())) {
+            setEmailError("Неккоректный email")
+        } else {
+            setEmailError("");
+        }
     }
 
     function passwordChange(event) {
         setPassword(event.target.value);
+
+        if(!event.target.value) {
+                setPasswordError("Пароль не может быть пустым");
+        }
+        else {
+            setPasswordError("");
+        }
     }
 
+    useEffect(() => {
+        if (emailErorr || passwordErorr) {
+            setFormValid(false);
+        } else {
+            setFormValid(true);
+        }
+    }, [emailErorr, passwordErorr])
+
     const {loginStatus, setLoginStatus} = useContext(Context);
+
+    const [response, setResponse] = useState();
 
     function authUser() {
         const user = {
@@ -33,8 +75,9 @@ const Login = () => {
             localStorage.setItem("token", res.data.token);
             setLoginStatus(true);
             navigate('/profile');
-        }).catch(function (error) {
-            console.log(error);
+        }).catch(res => {
+            console.log(res);
+            setResponse(res.response.data.message);
         });
 
         setEmail("");
@@ -75,9 +118,21 @@ const Login = () => {
                             <div className={styles.main__register}>
                                 <h2 className={styles.main__h2}>Вход</h2>
                                 <div className={styles.main__vvod}>
-                                    <input value={email} onChange={emailChange} type="email" placeholder="Email" className={styles.main__input}></input>
-                                    <input value={password} onChange={passwordChange} type="password" placeholder="Пароль" className={styles.main__input}></input>
-                                    <button onClick={authUser} className={styles.main__btn}>Войти</button>
+                                    {(emailDirty && emailErorr) && <div style={{color:"red"}}>{emailErorr}</div>}
+                                    <input onBlur={blurHandler} name="email" value={email} onChange={emailChange} type="email" placeholder="Email" className={styles.main__input}></input>
+                                    {(passwordDirty && passwordErorr) && <div style={{color:"red"}}>{passwordErorr}</div>}
+                                    <input onBlur={blurHandler} name="password" value={password} onChange={passwordChange} type="password" placeholder="Пароль" className={styles.main__input}></input>
+                                    <button disabled={!formValid} onClick={authUser} className={styles.main__btn}>Войти</button>
+                                    {response == "Invalid password"  ? 
+                                        <div style={{color:"blue", textAlign: 'center', marginTop: "10px"}}>Вы ввели неверный пароль! Попробуйте снова</div> 
+                                        : 
+                                        <div></div> 
+                                    }   
+                                    {response == "User not found"  ? 
+                                        <div style={{color:"blue", textAlign: 'center', marginTop: "10px"}}>Вы ввели неверную почту! Попробуйте снова</div> 
+                                        : 
+                                        <div></div> 
+                                    }   
                                     <p className={styles.main__p}>Нет аккаунта? <Link to="/register">Создайте.</Link></p>
                                 </div>
                             </div>

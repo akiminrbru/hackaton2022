@@ -1,11 +1,20 @@
 import classes from "./itemcard.module.scss"
+import { useNavigate } from "react-router-dom";
+import kartinka from './../../../img/defaultimage.jpg';
 
 
 const ItemCard = ({item})=>{
+
+    const navigate = useNavigate();
+
+    const formatDate = (date) => {
+        return date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()
+    }
+
     return (
-        <div className={classes.ItemCard}>
+        <div className={classes.ItemCard} onClick={() => navigate('/event/'+item._id)}>
             <div className={classes.itemImg} style={{
-                backgroundImage:`url(${item.img})`,
+                backgroundImage:`url(${item.img || kartinka})`,
             }}></div>
             <h2>{item.title}</h2>
             <hr/>
@@ -27,7 +36,7 @@ const ItemCard = ({item})=>{
                     <path d="M7.50001 0.9375C7.75921 0.9375 7.96876 1.14748 7.96876 1.40626C7.96876 1.66503 7.75921 1.87501 7.50001 1.87501C7.2408 1.87501 7.03125 1.66503 7.03125 1.40626C7.03125 1.14748 7.24075 0.9375 7.50001 0.9375Z" fill="#0D5185"/>
                     <path d="M14.0625 14.0625H0.937513C0.420012 14.0625 0 13.6425 0 13.125V14.0625C0 14.58 0.420012 15 0.937513 15H14.0625C14.58 15 15 14.58 15 14.0625V13.125C14.9999 13.6425 14.58 14.0625 14.0625 14.0625Z" fill="#C4C4C4"/>
                 </svg>
-                <p>{item.date}</p>
+                <p>{formatDate(new Date(item.startDate))} - {formatDate(new Date(item.endDate))}</p>
             </div>
         </div>
     )
