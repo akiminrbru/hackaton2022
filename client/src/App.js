@@ -13,6 +13,7 @@ import CreateEvent from './Components/CreateEvent/CreateEvent';
 import News from './Components/News/News';
 import {Context} from './context';
 import axios from 'axios';
+import View from './Components/View/View';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
                     <Route path="/" element={<Lending/>}/>
                     <Route path="/events" element={<News/>}/>
                     <Route path="/login" element={<Login />}/>
+                    <Route path="/view" element={<View />}/>
                     <Route path="/register" element={<Register />}/>
                     <Route path="/profile" element={<Profile />}/>
                     <Route path="/createEvent" element={<CreateEvent />}/>

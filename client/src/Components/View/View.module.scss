@@ -1,0 +1,153 @@
+.View{
+    padding-top: 150px;
+    h1{
+        font-weight: 800;
+        font-size: 36px;
+        line-height: 42px;
+        letter-spacing: 0.03em;
+        color: #333333;
+        text-align: center;
+
+    }
+    .banner{
+        background: #FFFFFF;
+        box-shadow: 0px 4px 18px rgba(108, 108, 108, 0.25);
+        border-radius: 15px;
+        margin-top: 20px;
+        padding: 54px;
+        display: flex;
+        justify-content: space-around;
+        h3{
+            font-weight: 800;
+            font-size: 16px;
+            line-height: 19px;
+            letter-spacing: 0.03em;
+            color: #333333;
+            width: 100%;
+            text-align: center;
+        }
+        hr{
+            background-color:  #909ADE;
+            width: 100%;
+            height: 1px;
+        }
+        .row_it{
+            margin-right: 5px;
+        }
+        .col_item{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-width: 500px;
+    
+        }
+        .row_item{
+            display: flex;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16px;
+            padding: 6px;
+            color: #333333;
+        }
+        button {
+            background: #909ADE;
+            box-shadow: 0px 4px 13px -1px rgba(175, 186, 255, 0.36);
+            border-radius: 15px;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 19px;
+            letter-spacing: 0.03em;
+            outline: none;
+            border: none;
+            color: #FFFFFF;
+            max-width: 300px;
+            padding: 15px 50px; 
+            cursor: pointer; 
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+       
+        .btn{
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            }
+
+    }
+
+    .contener{
+        display: flex;
+        margin-top: 50px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        div{
+            background: #FFFFFF;
+            box-shadow: 0px 4px 18px rgba(108, 108, 108, 0.25);
+            border-radius: 15px;
+            padding: 30px 50px;
+            width: 100%;
+            max-width: 500px;
+            min-width: 300px;
+            h3{
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 16px;
+                letter-spacing: 0.03em;
+                color: #000000;
+                text-align: center;
+            }
+            p{
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 16px;
+                letter-spacing: 0.03em;
+                color: #000000;
+                span{
+                    margin-left: 50px;
+                }
+            }
+        }
+    }
+  
+}
+
+@media (max-width:1000px) {
+    .View{
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h1{
+            font-size: 24px;
+            line-height: 20px;
+        }
+        .banner{
+            flex-direction: column;
+            align-items: center;
+            max-width: 500px;
+            min-width: 300px;
+            padding: 54px 0;
+            .col_item{
+                min-width: auto;
+            }
+            img{
+                width: 200px;
+            }
+        }
+        .contener{
+            flex-direction: column;
+            align-items: center;
+            flex-wrap: nowrap;
+            div{
+                margin-bottom: 50px;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                
+            }
+        }
+    }
+}
