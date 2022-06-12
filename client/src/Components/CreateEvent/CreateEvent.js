@@ -36,11 +36,7 @@ const CreateEvent = ({email}) => {
             location:'', 
             startDate: new Date(), 
             endDate: nextDay, 
-<<<<<<< HEAD
             tags: '',
-=======
-            tags: "", 
->>>>>>> e8873475801560137f5c132b96bf62a98b95abe6
             difficulty:'easy', 
             participateWays:'offline',
             company:'', 

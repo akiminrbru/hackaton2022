@@ -1,8 +1,10 @@
-
 import classes from "./manpan.module.scss"
 import React, {useContext, useState, useEffect, Fragment} from "react";
 import axios from "axios";
-import {useParams} from "react-router-dom";
+import { Link,useParams} from "react-router-dom";
+import styles from './ManPan.module.css';
+import logo from './../../img/logo.svg';
+
 
 const ManPan =()=>{
     const lvl =0
@@ -32,7 +34,27 @@ const ManPan =()=>{
     }
 
     return(
-        <div className={"content"}>
+        <div>
+            <div>
+            <header className={styles.header}>
+                        <div className="container">
+                            <div className={styles.header__content}>
+                                <Link className={styles.header__link} to="/"> 
+                                    <div className={styles.logo}>
+                                        <img className={styles.logo__img} src={logo} alt="logo"></img>
+                                        <h1 className={styles.logo__h1}>Помогай</h1>
+                                    </div>
+                                </Link>
+                                <nav className={styles.nav}>
+                                    <div>
+                                        <Link className={styles.nav__auth} to="/profile">Профиль</Link>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </header>
+            </div>
+            <div className={"content"}>
             {isLoaded ?
                 <div className={classes.ManPan}>
                     <h1>Панель управления мероприятием</h1>
@@ -133,6 +155,7 @@ const ManPan =()=>{
                 </div>
             }
 
+        </div>
         </div>
     )
 }
