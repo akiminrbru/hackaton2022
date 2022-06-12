@@ -82,14 +82,24 @@ const View = () => {
                                 <h1 className={styles.logo__h1}>Помогай</h1>
                             </div>
                         </Link>
-                        <nav className={styles.nav}>
-                            <div>
-                                <Link className={styles.nav__auth} to="/profile">Вернуться в профиль</Link>
-                            </div>
-                            <div className={styles.nav__box}>
-                                <button className={styles.nav__disauth} onClick={disAuth} to="/">Выйти</button>
-                            </div>
-                        </nav>
+                        <div>
+                            {loginStatus ?
+                            <nav className={styles.nav}>
+                                <div>
+                                <Link className={styles.nav__profile} to="/profile">Профиль</Link>
+                                </div>
+                            </nav>
+                            :
+                            <nav className={styles.nav}>
+                                <div>
+                                    <Link className={styles.nav__auth} to="/login">Вход</Link>
+                                </div>
+                                <div className={styles.nav__box}>
+                                    <Link className={styles.nav__reg} to="/register">Регистрация</Link>
+                                </div>
+                            </nav>
+                            }
+                        </div>
                     </div>
                 </div>
             </header>
