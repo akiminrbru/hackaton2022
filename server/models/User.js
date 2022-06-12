@@ -6,6 +6,7 @@ const User = new Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     registeredDate: {type: Date, default: Date.now()},
+    reputation: {type: Number, default: 0},
     avatar: {type: String},
     birthday: {type: Date},
     hours: {type: Number, default: 0},

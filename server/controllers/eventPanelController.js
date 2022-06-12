@@ -14,7 +14,7 @@ class eventPanelController {
                                         return res.status(403).json({message: "Доступ запрещен"})
 
                                 return res.status(200).json({
-                                        eventsFromBd
+                                        events: eventsFromBd
                                 })
                         }
                         else {
@@ -109,24 +109,29 @@ class eventPanelController {
                                         for (let i = 0; i < eventsFromBd.subscribers.length; i++) {
                                                 if(eventsFromBd.subscribers[i].user) {
                                                         if (eventsFromBd.subscribers[i].user.toString()===id) {
-                                                                if (!eventsFromBd.subscribers[i].presense)
-                                                                        return res.status(400).json({message: "Пользователь ещё не отмечен"})
-                                                                eventsFromBd.subscribers[i].hours = hours
-
                                                                 const user = await User.findById({_id: id})
-                                                                user.hours+=hours
+
+                                                                if (!eventsFromBd.subscribers[i].presense) {
+                                                                        eventsFromBd.subscribers[i].presense = true
+                                                                        user.takePart++
+                                                                        user.events.push(eventsFromBd._id)
+                                                                }
+                                                                       // return res.status(400).json({message: "Пользователь ещё не отмечен"})
+                                                                eventsFromBd.subscribers[i].hours = parseInt(hours)
+                                                                user.hours+=parseInt(hours)
+
                                                                 switch(eventsFromBd.difficulty) {
                                                                         case "medium":
-                                                                                user.coins+=hours*2
+                                                                                user.coins+=parseInt(hours)*2
                                                                                 break;
                                                                         case "hard":
-                                                                                user.coins+=hours*4
+                                                                                user.coins+=parseInt(hours)*4
                                                                                 break;
                                                                         case "other":
-                                                                                user.coins+=hours*6
+                                                                                user.coins+=parseInt(hours)*6
                                                                                 break;
                                                                         default:
-                                                                                user.coins+=hours
+                                                                                user.coins+=parseInt(hours)
                                                                 }
 
                                                                 await user.save()

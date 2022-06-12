@@ -54,6 +54,8 @@ router.post('/', authMiddleware, uploadMiddleware.single('file'), async(req, res
 router.delete('/:id', authMiddleware, eventController.delete)
 
 
+
+//router.delete('/banana/', eventController.del)
 router.get('/', eventController.getAll)
 router.get('/search/text', eventController.search)
 router.get('/sort', eventController.sort)
@@ -61,7 +63,7 @@ router.get('/panel/:id', authMiddleware, eventPanelController.getInfo)
 router.post('/panel/hours/:id', authMiddleware, eventPanelController.addHours)
 router.get('/subs/:id', authMiddleware, eventPanelController.subscribe)
 router.get('/persense/params', authMiddleware, eventPanelController.setPersense)
-router.get('/:id', eventController.getAll)
+router.get('/:id', authMiddleware, eventController.getOne)
 
 
 module.exports = router

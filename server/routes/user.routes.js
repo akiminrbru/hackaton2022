@@ -9,7 +9,7 @@ const router = new Router()
 
 router.get('/', authMiddleware, async(req, res) => {
 
-    const userInfoFromDB = await User.findById(req.user.id)
+    const userInfoFromDB = await User.findById(req.user.id).populate('events', {title: 1, description: 1, location: 1, startDate: 1, img: 1})
     //.populate('events')
 
     const userInfo = {
@@ -24,6 +24,8 @@ router.get('/', authMiddleware, async(req, res) => {
         takePart: userInfoFromDB.takePart,
         events: userInfoFromDB.events,
         phoneNumber: userInfoFromDB.phoneNumber,
+        coins: userInfoFromDB.coins,
+        reputation: userInfoFromDB.reputation
     }
 
     return res.status(200).json(userInfo)

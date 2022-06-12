@@ -8,7 +8,7 @@ const Event = new Schema({
     location: {type: String, required: true},
     startDate: {type: Date, required: true},
     endDate: {type: Date },
-    tags: [{type: String}],
+    tags: {type: String},
     views: {type: Number, default: 0},
     likes: {type: Number, default: 0},
     difficulty: {type: String, default: 'Easy'},

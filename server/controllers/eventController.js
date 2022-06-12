@@ -14,20 +14,43 @@ const searchTypes = {
 class eventController {
     async getAll (req, res) {
         try {
-            let eventsFromBd
-            if (req.params.id) {
-                eventsFromBd = await Event.findOne({_id:req.params.id}, {presenseLink: 0})
-                eventsFromBd.views++
-                await eventsFromBd.save()
-            }
-            else {
-                eventsFromBd = await Event.find({})
-            }
+            const eventsFromBd = await Event.find({}, {presenseLink: 0})
 
             return res.status(201).json(eventsFromBd)
         } catch (e) {
-            console.log(e)
+            //console.log(e)
             return res.status(400).json({message: "Ошибка при получении мероприятия"})
+        }
+    }
+
+    async getOne (req, res) {
+        try {
+            if (req.params.id) {
+                const eventsFromBd = await Event.findOne({_id:req.params.id})
+                eventsFromBd.views++
+                await eventsFromBd.save()
+
+                if (eventsFromBd.user.toString()===req.user.id)
+                    return res.status(201).json({info: eventsFromBd, user_id: req.user.id, isCreator: true})
+                
+                return res.status(201).json({info: eventsFromBd, user_id: req.user.id, isCreator: false})
+            }
+            else {
+                return res.status(400).json({message: "Ошибка при получении полного мероприятия"})
+            }
+
+            
+        } catch (e) {
+            //console.log(e)
+            return res.status(400).json({message: "Ошибка при получении мероприятия"})
+        }
+    }
+
+    async del(req, res) {
+        try {
+            await Event.deleteMany({})
+        } catch (e) {
+
         }
     }
 
