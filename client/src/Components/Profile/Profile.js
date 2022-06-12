@@ -148,12 +148,12 @@ const Profile = () => {
         navigate('/');
     }
 
-    useEffect(() => {
-        //console.log(loginStatus)
-        if(loginStatus === false) {
-            navigate("/");
-        }
-    }, []);
+    // useEffect(() => {
+    //     //console.log(loginStatus)
+    //     if(loginStatus === false) {
+    //         navigate("/");
+    //     }
+    // });
 
     const [information, setInformation] = useState();
     const [isLoaded, setSsLoaded] = useState(false);
@@ -187,7 +187,7 @@ const Profile = () => {
         <div>
             {information ?
                 <div>
-                            <header className={styles.header}>
+                        <header className={styles.header}>
                         <div className="container">
                             <div className={styles.header__content}>
                                 <Link className={styles.header__link} to="/">
@@ -208,7 +208,23 @@ const Profile = () => {
                         <div className="container">
                             <div className={classes.Profile}>
                                 <ProfileCard information={information}/>
-                                {isLoaded ? <Dashboard events={events}/> : <div>Загрузка....</div>}
+                                {isLoaded ? 
+                                <Dashboard events={events}/> 
+                                : 
+                                <div className={loader.loader + ' ' + loader.loader1}>
+                                    <div>
+                                        <div>
+                                        <div>
+                                            <div>
+                                            <div>
+                                                <div></div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
                             </div>
                         </div>
                     </article>
