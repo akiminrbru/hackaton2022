@@ -14,6 +14,8 @@ import News from './Components/News/News';
 import {Context} from './context';
 import axios from 'axios';
 import View from './Components/View/View';
+import ManPan from "./Components/ManPan/manpan";
+import Persense from "./Components/Persense/Prsense";
 
 
 function App() {
@@ -51,6 +53,8 @@ function App() {
                     <Route path="/profile" element={<Profile />}/>
                     <Route path="/createEvent" element={<CreateEvent />}/>
                     <Route path="/event/:id" element={<View />}/>
+                    <Route path="/panel/:id" element={<ManPan />}/>
+                    <Route path="/persense/:id" element={<Persense />}/>
                 </Routes>
             </div>
         </Context.Provider>

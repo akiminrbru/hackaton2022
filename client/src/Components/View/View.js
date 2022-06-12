@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {useContext, useState, useEffect, Fragment} from "react";
 import classes from "./View.module.scss";
 import img1 from "../../img/img1.png";
 import styles from './View.module.css';
@@ -10,49 +10,13 @@ import axios from "axios";
 import { useParams } from "react-router-dom"
 import kartinka from './../../img/defaultimage.jpg';
 
-const items = [
-    {
-        t:"тэги",
-        v:"прикольное весело"
-    },
-    {
-        t:"тэги",
-        v:"прикольное весело"
-    },
-    {
-        t:"тэги",
-        v:"прикольное весело"
-    },
-    {
-        t:"тэги",
-        v:"прикольное весело"
-    },
-    {
-        t:"тэги",
-        v:"прикольное весело"
-    },
-    {
-        t:"тэги",
-        v:"прикольное весело"
-    },
-    {
-        t:"тэги",
-        v:"прикольное весело"
-    },
-    {
-        t:"тэги",
-        v:"прикольное весело"
-    },
-    {
-        t:"тэги",
-        v:"прикольное весело"
-    },
-]
-
 const View = () => {
-    const [information, setInformation] = useState();
-    const [isLoaded, setIsLoaded] = useState(false);
-    const { id } = useParams();
+    const [information, setInformation] = useState()
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [isSubscribed, setSubscribed] = useState(false)
+    const [isCreator, setCreator] = useState(false)
+    const [userId, setUserId] = useState('')
+    const { id } = useParams()
 
     useEffect(() => {
 
@@ -62,16 +26,36 @@ const View = () => {
                 "Content-Type": "application/json;charset=utf-8",
                 }
         }).then(res => {
-            console.log(res.data);
-            setInformation(res.data);
+            console.log(res.data)
+            setInformation(res.data.info)
+            setUserId(res.data.user_id)
+            setCreator(res.data.isCreator)
+
+            if (information?.subscribers) {
+                let subs = information?.subscribers
+                for (let i = 0; i < subs.length; i++) {
+                    if (subs[i].user===userId) {
+                        setSubscribed(true)
+                    }
+                }
+            }
             setIsLoaded(true)
 
         })
-
-        
-
     }, []);
 
+    function subscribe() {
+        axios.get("http://hack.mysecrets.site/api/event/subs/"+information._id, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token"),
+                "Content-Type": "application/json;charset=utf-8",
+            }
+        }).then(res => {
+            console.log(res.data);
+
+
+        })
+    }
 
     const formatDate = (date) => {
         return date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()
@@ -151,7 +135,19 @@ const View = () => {
                                         
                                     </div>
                                     <div className={classes.btn}>
-                                        <button> Записаться</button>
+                                        {isCreator ?
+                                                <button onClick={() => navigate('/panel/'+information._id)}> Перейти в панель управления</button>
+                                            :
+                                            <Fragment>
+                                                {
+                                                    isSubscribed ?
+                                                        <div>Вы уже подписаны</div>
+                                                        :
+                                                        <button onClick={() => subscribe()}> Записаться</button>
+                                                }
+                                            </Fragment>
+
+                                        }
                                     </div>
                                 
                                 </div>

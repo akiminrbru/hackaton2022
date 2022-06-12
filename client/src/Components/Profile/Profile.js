@@ -12,84 +12,15 @@ import axios from "axios";
 import loader from './Loader.module.scss';
 
 
-const body = {
-    name:"Иван",
-    surname:"Иванов",
-    email:"vezhliviy@yandex.ru",
-    phone:"+7 (999) 909-99-99",
-    events:[
-        {
-            img:avatar_profile,
-            title:"Благотворительная акция",
-            location:"г. Ростов-на-Дону, пл. Гагарина 1",
-            date:"27.05 - 29.05",
-            id:""
-        },
-        {
-            img:avatar_profile,
-            title:"Благотворительная акция",
-            location:"г. Ростов-на-Дону, пл. Гагарина 1",
-            date:"27.05 - 29.05",
-            id:""
-        },
-        {
-            img:avatar_profile,
-            title:"Благотворительная акция",
-            location:"г. Ростов-на-Дону, пл. Гагарина 1",
-            date:"27.05 - 29.05",
-            id:""
-        },
-        {
-            img:avatar_profile,
-            title:"Благотворительная акция",
-            location:"г. Ростов-на-Дону, пл. Гагарина 1",
-            date:"27.05 - 29.05",
-            id:""
-        },
-        {
-            img:avatar_profile,
-            title:"Благотворительная акция",
-            location:"г. Ростов-на-Дону, пл. Гагарина 1",
-            date:"27.05 - 29.05",
-            id:""
-        },
-        {
-            img:avatar_profile,
-            title:"Благотворительная акция",
-            location:"г. Ростов-на-Дону, пл. Гагарина 1",
-            date:"27.05 - 29.05",
-            id:""
-        },
-        {
-            img:avatar_profile,
-            title:"Благотворительная акция",
-            location:"г. Ростов-на-Дону, пл. Гагарина 1",
-            date:"27.05 - 29.05",
-            id:""
-        },
-        {
-            img:avatar_profile,
-            title:"Благотворительная акция",
-            location:"г. Ростов-на-Дону, пл. Гагарина 1",
-            date:"27.05 - 29.05",
-            id:""
-        }
-
-    ]
-}
-
 const ProfileCard = ({information})=>{
-    const {avatar,name,surname,visited_count,reputation,email,phone} = body;
-
-    
 
     return (
         <div className={classes.ProfileCard}>
             <div className={classes.userinfo}>
-                <img src={avatar||avatar_profile}/>
+                <img src={information.avatar||avatar_profile}/>
                 <h2>{information.firstName} {information.lastName}</h2>
                 <p>Посещено мероприятий:</p>
-                <p data-visited> {information.events.length}</p>
+                <p data-visited> {information.takePart}</p>
             </div>
             <div>
                 <Link className={classes.createEvent} to="/createEvent">Создать мероприятие</Link>
@@ -98,7 +29,7 @@ const ProfileCard = ({information})=>{
                 <Link className={classes.createEvent} to="/events">Список мероприятий</Link>
             </div>
             <div className={`${classes.userstats} ${classes.max_width}`}>
-                <h2>Репутация: {reputation||0}</h2>
+                <h2>Репутация: {information.reputation||0}</h2>
                 <h2>Отзывы: </h2>
                 <p></p>
             </div>
