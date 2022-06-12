@@ -14,14 +14,22 @@ import {Context} from './../../context';
 const News = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [events, setEvents] = useState([]);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         axios.get("http://hack.mysecrets.site/api/event").then(res => {
-            console.log(res)
             setEvents(res.data)
             setIsLoaded(true)
         })
-    }, [isLoaded]);
+    }, []);
+
+    const searchEvents = () => {
+            setIsLoaded(false)
+            axios.get("http://hack.mysecrets.site/api/event/search/text?text="+search+"&type=base").then(res => {
+                setEvents(res.data)
+                setIsLoaded(true)
+            })
+    }
 
     const {loginStatus, setLoginStatus} = useContext(Context);
 
@@ -32,14 +40,16 @@ const News = () => {
                     <div className={styles.header__content}>
                         <Link className={styles.header__link} to="/"> 
                             <div className={styles.logo}>
-                                <img className={styles.logo__img} src={logo} alt="logo"></img>
+                                <img className={styles.logo_img} src={logo} alt="logo"></img>
                                 <h1 className={styles.logo__h1}>Помогай</h1>
                             </div>
                         </Link>
+
                         <div className={styles.search}>
-                            <div><img src={lupa} alt="lupa"></img></div>
-                            <div><input placeholder="Поиск"></input></div>
+                            <div><img onClick={() => searchEvents()} src={lupa} alt="lupa"></img></div>
+                            <div><input value={search} onChange={(e)=>setSearch(e.target.value)} placeholder="Поиск"></input></div>
                         </div>
+
                         {loginStatus ?
                         <nav className={styles.nav}>
                             <div>

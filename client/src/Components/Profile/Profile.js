@@ -29,7 +29,9 @@ const ProfileCard = ({information})=>{
                 <Link className={classes.createEvent} to="/events">Список мероприятий</Link>
             </div>
             <div className={`${classes.userstats} ${classes.max_width}`}>
-                <h2>Репутация: {information.reputation||0}</h2>
+                <h2>Репутация: {information.reputation}</h2>
+                <h2>Монет: {information.coins}</h2>
+                <h2>Часов: {information.hours}</h2>
                 <h2>Отзывы: </h2>
                 <p></p>
             </div>
@@ -53,7 +55,7 @@ const ProfileCard = ({information})=>{
     )
 }
 
-const Dashboard = ({events})=>{
+const Dashboard = ({events, events2})=>{
     return (
         <div className={classes.Dashboard}>
             <h2>Созданные мероприятия</h2>
@@ -63,6 +65,11 @@ const Dashboard = ({events})=>{
                 ))}
             </div>
             <h2>Посещенные мероприятия</h2>
+            <div className={classes.DashboardItems}>
+                {events2.map((e,i)=>(
+                    <ItemCard key={i} item={e}/>
+                ))}
+            </div>
         </div>
     )
 }
@@ -97,7 +104,7 @@ const Profile = () => {
                 "Content-Type": "application/json;charset=utf-8",
                 }
         }).then(res => {
-            //console.log(res.data);
+            console.log(res.data);
             setInformation(res.data);
 
             axios.get("http://hack.mysecrets.site/api/user/events/"+res.data.id, {
@@ -140,7 +147,7 @@ const Profile = () => {
                             <div className={classes.Profile}>
                                 <ProfileCard information={information}/>
                                 {isLoaded ? 
-                                <Dashboard events={events}/> 
+                                <Dashboard events={events} events2={information.events}/>
                                 : 
                                 <div className={loader.loader + ' ' + loader.loader1}>
                                     <div>

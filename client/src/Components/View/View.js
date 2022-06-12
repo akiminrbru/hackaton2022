@@ -173,15 +173,28 @@ const View = () => {
                                 <p>Способ участия: <span>{information.participateWays}</span></p>
                                 <p>Название компании: <span>{information.fullInfo.company}</span></p>
                                 <p>Ограничения на возраст: <span>{information.fullInfo.age}</span></p>
+                                <p>Сложность: <span>{information.difficulty}</span></p>
 
                             </div>
                             <div>
                                 <h2>Дополнительная информация</h2>
                                 
-                                <p>Тип работы: <span>{information.fullInfo.workType}</span></p>
-                                <p>Требования к кандидатам: <span>{information.fullInfo.requirements}</span></p>
-                                <p>Задачи: <span>{information.fullInfo.tasks}</span></p>
-                                <p>Контактные данные: <span>{information.fullInfo.contactEmail}</span></p>
+                                <p>Тип работы: <span>{information.fullInfo.workType||'-'}</span></p>
+                                <p>Требования к кандидатам: <span>{information.fullInfo.requirements||'-'}</span></p>
+                                <p>Задачи: <span>{information.fullInfo.tasks||'-'}</span></p>
+                                <p>Контактные данные: <span>{information.fullInfo.contactEmail||'-'}</span></p>
+                                <p>Дата создания: <span>{formatDate( new Date(information.created))}</span></p>
+                                <p>Количество подписчиков: <span>{information.subscribers.length}</span></p>
+                                <p>Количество просмотров: <span>{information.views}</span></p>
+                                <p>Срочность: <span>{information.fullInfo.deadlines}</span></p>
+                                <p>Сфера вакансии: <span>{information.fullInfo.vacancySphere||'-'}</span></p>
+                                <p>Наименование вакансии: <span>{information.fullInfo.vacancyName||'-'}</span></p>
+                                <p>Тэги: <span>{information.tags||'-'}</span></p>
+                                <p>Условия вакансии <span>{information.workInfo.conditions||'-'}</span></p>
+                                <p>Зарплата: <span>{information.workInfo.salary||'-'}</span></p>
+                                <p>Целевая аудитория: <span>{information.workInfo.audience||'-'}</span></p>
+                                <p>Награды для волонтеров: <span>{information.helperInfo.awards||'-'}</span></p>
+                                <p>Сервис для волонтеров: <span>{information.helperInfo.services||'-'}</span></p>
 
                             </div>
                         </div>

@@ -35,12 +35,8 @@ const CreateEvent = ({email}) => {
             description:'', 
             location:'', 
             startDate: new Date(), 
-            endDate: nextDay, 
-<<<<<<< HEAD
+            endDate: nextDay,
             tags: '',
-=======
-            tags: "", 
->>>>>>> e8873475801560137f5c132b96bf62a98b95abe6
             difficulty:'easy', 
             participateWays:'offline',
             company:'', 
@@ -133,11 +129,7 @@ const CreateEvent = ({email}) => {
         event.preventDefault();
         const fileObject = event.target.files[0];
         if (!fileObject) return;
-        console.log(fileObject)
-        
         setFile(fileObject)
-
-        console.log(file)
     }
 
     const create = () => {
@@ -165,7 +157,7 @@ const CreateEvent = ({email}) => {
                     <div className={styles.header__content}>
                         <Link className={styles.header__link} to='/'>
                             <div className={styles.logo}>
-                                <img className={styles.logo__img} src={logo} alt="logo"></img>
+                                <img className={styles.logo__img} src={logo} alt="logo"/>
                                 <h1 className={styles.logo__h1}>Помогай</h1>
                             </div>
                         </Link>
@@ -192,12 +184,12 @@ const CreateEvent = ({email}) => {
                                         <option value="event">Мероприятия</option>
                                     </select>
                                     {(eventDataDirty.title && eventDataErorr.title) && <div style={{color:"red"}}>{eventDataErorr.title}</div>}
-                                    <input onBlur={blurHandler} name="title"           onChange={changeInputEvent} value={eventData.title} type="text" placeholder={eventData.typeOfEvent==="work" ? "Наименование вакансии*":"Название мероприятия*"} className={styles.main__input}></input>
+                                    <input onBlur={blurHandler} name="title"           onChange={changeInputEvent} value={eventData.title} type="text" placeholder={eventData.typeOfEvent==="work" ? "Наименование вакансии*":"Название мероприятия*"} className={styles.main__input}/>
                                     {(eventDataDirty.description && eventDataErorr.description) && <div style={{color:"red"}}>{eventDataErorr.description}</div>}
                                     <textarea onBlur={blurHandler} name="description"  onChange={changeInputEvent} value={eventData.description}  placeholder={eventData.typeOfEvent==="work" ? "Описание вакансии*":"Описание мероприятия*"} className={styles.main__input + ' ' + styles.main__textarea}/>
                                     <input name="file"            onChange={handleFileChange} ref={imageRef} accept="image/*" type="file" placeholder="Описание *" className={styles.main__input + ' ' + styles.main__inputfile}/>
                                     {(eventDataDirty.location && eventDataErorr.location) && <div style={{color:"red"}}>{eventDataErorr.location}</div>}
-                                    <input onBlur={blurHandler} name="location"        onChange={changeInputEvent} value={eventData.location} type="text" placeholder="Местоположение *" className={styles.main__input}></input>
+                                    <input onBlur={blurHandler} name="location"        onChange={changeInputEvent} value={eventData.location} type="text" placeholder="Местоположение *" className={styles.main__input}/>
                                     {(eventDataDirty.startDate && eventDataErorr.startDate) && <div style={{color:"red"}}>{eventDataErorr.startDate}</div>}
                                     <input onBlur={blurHandler} name="startDate"       onChange={changeInputEvent} value={eventData.startDate} type="date" className={styles.main__input + ' ' + styles.main__inputdate} />
                                     <input onBlur={blurHandler} name="endDate"         onChange={changeInputEvent} value={eventData.endDate} type="date" className={styles.main__input + ' ' + styles.main__inputdate} />
@@ -213,31 +205,31 @@ const CreateEvent = ({email}) => {
                                         <option value="mixed">Смешанный</option>
                                     </select>
                                     {(eventDataDirty.company && eventDataErorr.company) && <div style={{color:"red"}}>{eventDataErorr.company}</div>}
-                                    <input onBlur={blurHandler} name="company"         onChange={changeInputEvent} value={eventData.company} type="text" placeholder="Название компании *" className={styles.main__input}></input>
+                                    <input onBlur={blurHandler} name="company"         onChange={changeInputEvent} value={eventData.company} type="text" placeholder="Название компании *" className={styles.main__input}/>
                                     {(eventDataDirty.age && eventDataErorr.age) && <div style={{color:"red"}}>{eventDataErorr.age}</div>}
-                                    <input onBlur={blurHandler} name="age"             onChange={changeInputEvent} value={eventData.age} type="number" placeholder="Ограничения на возраст *" className={styles.main__input}></input>
+                                    <input onBlur={blurHandler} name="age"             onChange={changeInputEvent} value={eventData.age} type="number" placeholder="Ограничения на возраст *" className={styles.main__input}/>
                                 </div>
                                 <div className={styles.main__vvodright}> 
-                                    <input name="workType"        onChange={changeInputEvent} value={eventData.workType} type="text" placeholder="Тип работы" className={styles.main__input}></input>
+                                    <input name="workType"        onChange={changeInputEvent} value={eventData.workType} type="text" placeholder="Тип работы" className={styles.main__input}/>
                                     <textarea name="requirements" onChange={changeInputEvent} value={eventData.requirements} placeholder="Требования к кандидату" className={styles.main__input + ' ' + styles.main__textarea}/>
                                     <textarea name="tasks"        onChange={changeInputEvent} value={eventData.tasks} placeholder="Задачи" className={styles.main__input + ' ' + styles.main__textarea} />
-                                    <input name="deadlines"       onChange={changeInputEvent} value={eventData.deadlines} type="text" placeholder="Сроки" className={styles.main__input}></input>
-                                    <input name="contactEmail"    onChange={changeInputEvent} value={eventData.contactEmail} type="email"placeholder="Контактная почта" className={styles.main__input}></input>
+                                    <input name="deadlines"       onChange={changeInputEvent} value={eventData.deadlines} type="text" placeholder="Сроки" className={styles.main__input}/>
+                                    <input name="contactEmail"    onChange={changeInputEvent} value={eventData.contactEmail} type="email"placeholder="Контактная почта" className={styles.main__input}/>
                                     {eventData.typeOfEvent==="work" &&
                                         <Fragment>
-                                            <input name="salary"          onChange={changeInputEvent} value={eventData.salary} type="number" placeholder="Заработная плата" className={styles.main__input}></input>
-                                            <input name="audience"          onChange={changeInputEvent} value={eventData.audience} type="number" placeholder="Целевая аудитория" className={styles.main__input}></input>
+                                            <input name="salary"          onChange={changeInputEvent} value={eventData.salary} type="number" placeholder="Заработная плата" className={styles.main__input}/>
+                                            <input name="audience"          onChange={changeInputEvent} value={eventData.audience} type="text" placeholder="Целевая аудитория" className={styles.main__input}/>
                                         </Fragment>
                                     }
 
                                     {eventData.typeOfEvent==="event" &&
                                         <Fragment>
-                                            <input name="awards"          onChange={changeInputEvent} value={eventData.awards} type="text" placeholder="Награды для волонтеров" className={styles.main__input}></input>
-                                            <input name="services"        onChange={changeInputEvent} value={eventData.services} type="text" placeholder="Доступный сервис для волонтеров" className={styles.main__input}></input>
+                                            <input name="awards"          onChange={changeInputEvent} value={eventData.awards} type="text" placeholder="Награды для волонтеров" className={styles.main__input}/>
+                                            <input name="services"        onChange={changeInputEvent} value={eventData.services} type="text" placeholder="Доступный сервис для волонтеров" className={styles.main__input}/>
                                         </Fragment>
                                     }
                                     
-                                    <input name="vacancySphere"   onChange={changeInputEvent} value={eventData.vacancySphere} type="text" placeholder="Сфера вакансии" className={styles.main__input}></input>
+                                    <input name="vacancySphere"   onChange={changeInputEvent} value={eventData.vacancySphere} type="text" placeholder="Сфера вакансии" className={styles.main__input}/>
                                 </div>
                             </div>
                             <div className={styles.main__vvodbtn}>
@@ -250,7 +242,7 @@ const CreateEvent = ({email}) => {
             <footer className={styles.footer}>
                 <div className="container">
                     <div className={styles.footer__logo}>
-                        <img src={logowhite} alt="logowhite"></img>
+                        <img src={logowhite} alt="logowhite"/>
                         <h2 className={styles.footer__h2}>Помогай</h2>
                     </div>  
                 </div>
